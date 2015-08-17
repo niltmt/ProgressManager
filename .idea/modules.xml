@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/AppCentral/AppCentral.iml" filepath="$PROJECT_DIR$/AppCentral/AppCentral.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ProgressManager.iml" filepath="$PROJECT_DIR$/ProgressManager.iml" />
       <module fileurl="file://$PROJECT_DIR$/ProgressManagerTest.iml" filepath="$PROJECT_DIR$/ProgressManagerTest.iml" />
     </modules>
   </component>
