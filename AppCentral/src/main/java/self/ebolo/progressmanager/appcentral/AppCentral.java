@@ -1,3 +1,5 @@
+/*Main screen*/
+
 package self.ebolo.progressmanager.appcentral;
 
 import android.os.Bundle;
