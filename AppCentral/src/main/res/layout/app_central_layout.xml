@@ -9,4 +9,27 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
     </android.support.v7.widget.RecyclerView>
+
+        <com.software.shell.fab.FloatingActionButton
+                xmlns:fab="http://schemas.android.com/apk/res-auto"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/app_fab"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="@dimen/fab_margin"
+                android:layout_marginBottom="@dimen/fab_margin"
+                fab:image="@drawable/fab_plus_icon"
+                fab:image_size="24dp"
+                fab:shadow_color="#757575"
+                fab:shadow_radius="2.0dp"
+                fab:shadow_xOffset="1.0dp"
+                fab:shadow_yOffset="2.0dp"
+                fab:button_color="@color/primary_color"
+                fab:button_colorPressed="@color/primary_color_dark"
+                fab:button_colorRipple="@color/fab_material_black"
+                fab:rippleEffect_enabled="false"
+                fab:shadowResponsiveEffect_enabled="true"
+                fab:show_animation="@anim/fab_scale_up"
+                fab:hide_animation="@anim/fab_scale_down"/>
 </RelativeLayout>

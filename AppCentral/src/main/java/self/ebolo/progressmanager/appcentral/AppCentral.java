@@ -1,5 +1,6 @@
 package self.ebolo.progressmanager.appcentral;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -7,6 +8,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import com.software.shell.fab.ActionButton;
 import self.ebolo.progressmanager.appcentral.data.SubjectItem;
 import self.ebolo.progressmanager.appcentral.data.SubjectRecyclerViewAdapter;
 
@@ -17,6 +20,7 @@ public class AppCentral extends AppCompatActivity {
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
+    private ActionButton appFAB;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -35,6 +39,16 @@ public class AppCentral extends AppCompatActivity {
 
         mAdapter = new SubjectRecyclerViewAdapter(datacCreate());
         mRecyclerView.setAdapter(mAdapter);
+
+        appFAB = (ActionButton) findViewById(R.id.app_fab);
+        appFAB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //appFAB.hide();
+                Intent newSubject = new Intent(getApplicationContext(), NewSubject.class);
+                startActivity(newSubject);
+            }
+        });
     }
 
     private List<SubjectItem> datacCreate() {
