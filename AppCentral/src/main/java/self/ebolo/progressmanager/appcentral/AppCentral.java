@@ -40,7 +40,7 @@ public class AppCentral extends AppCompatActivity {
         mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mRecyclerView.setLayoutManager(mLayoutManager);
 
-        mAdapter = new SubjectRecyclerViewAdapter(databaseManagement.getSubjectList());
+        mAdapter = new SubjectRecyclerViewAdapter(databaseManagement.getSubjectList(), this);
         mRecyclerView.setAdapter(mAdapter);
 
         appFAB = (ButtonFloat) findViewById(R.id.app_fab);
