@@ -6,7 +6,7 @@
 
     <uses-sdk
             android:minSdkVersion="18"
-            android:targetSdkVersion="21"/>
+            android:targetSdkVersion="23"/>
 
     <uses-permission
             android:name="android.permission.WRITE_EXTERNAL_STORAGE"
@@ -18,11 +18,11 @@
 
     <application
             android:icon="@drawable/ic_launcher"
-            android:label="@string/app_name"
-            android:theme="@style/AppThemeWA">
+            android:label="@string/app_name">
         <activity
                 android:name=".AppCentral"
-                android:label="@string/app_name">
+                android:label="@string/app_name"
+                android:theme="@style/AppThemeWA">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
@@ -31,8 +31,9 @@
         </activity>
         <activity
                 android:name=".NewSubject"
-                android:label="@string/title_activity_new_subject"
-                android:parentActivityName=".AppCentral">
+                android:label=""
+                android:parentActivityName=".AppCentral"
+                android:theme="@style/AppThemeNAS">
             <meta-data
                     android:name="android.support.PARENT_ACTIVITY"
                     android:value="self.ebolo.progressmanager.appcentral.AppCentral"/>

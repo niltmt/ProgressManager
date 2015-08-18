@@ -11,23 +11,23 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import com.software.shell.fab.ActionButton;
+import com.gc.materialdesign.views.ButtonFloat;
+import self.ebolo.progressmanager.appcentral.data.DatabaseManagement;
 import self.ebolo.progressmanager.appcentral.data.SubjectItem;
 import self.ebolo.progressmanager.appcentral.data.SubjectRecyclerViewAdapter;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class AppCentral extends AppCompatActivity {
     private RecyclerView mRecyclerView;
-    private RecyclerView.Adapter mAdapter;
-    private RecyclerView.LayoutManager mLayoutManager;
-    private ActionButton appFAB;
+    private SubjectRecyclerViewAdapter mAdapter;
+    private LinearLayoutManager mLayoutManager;
+    private ButtonFloat appFAB;
+    private DatabaseManagement databaseManagement;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.app_central_layout);
+        databaseManagement = new DatabaseManagement();
 
         mRecyclerView = (RecyclerView) findViewById(R.id.app_central_recyclerview);
 
@@ -37,31 +37,33 @@ public class AppCentral extends AppCompatActivity {
 
         // use a linear layout manager
         mLayoutManager = new LinearLayoutManager(this);
+        mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mRecyclerView.setLayoutManager(mLayoutManager);
 
-        mAdapter = new SubjectRecyclerViewAdapter(datacCreate());
+        mAdapter = new SubjectRecyclerViewAdapter(databaseManagement.getSubjectList());
         mRecyclerView.setAdapter(mAdapter);
 
-        appFAB = (ActionButton) findViewById(R.id.app_fab);
+        appFAB = (ButtonFloat) findViewById(R.id.app_fab);
         appFAB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //appFAB.hide();
                 Intent newSubject = new Intent(getApplicationContext(), NewSubject.class);
-                startActivity(newSubject);
+                startActivityForResult(newSubject, 1);
             }
         });
     }
 
-    private List<SubjectItem> datacCreate() {
-        List<SubjectItem> testItems = new ArrayList<>();
-        for (int i = 0; i < 1; i++) {
-            SubjectItem object = new SubjectItem();
-            object.setSubjectName("Project " + i);
-            object.setCompletePerc(i + 50);
-            testItems.add(object);
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        if (requestCode == 1) {
+            if (resultCode == RESULT_OK) {
+                SubjectItem returnSubject = (SubjectItem) data.getSerializableExtra("subject");
+                databaseManagement.getSubjectList().add(returnSubject);
+                mAdapter.notifyDataSetChanged();
+            }
         }
-        return testItems;
     }
 
     @Override

@@ -1,13 +1,12 @@
 package self.ebolo.progressmanager.appcentral.data;
 
-import android.content.res.ColorStateList;
-import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import com.gc.materialdesign.views.ButtonFlat;
 import self.ebolo.progressmanager.appcentral.R;
 
 import java.util.List;
@@ -22,7 +21,8 @@ public class SubjectRecyclerViewAdapter extends RecyclerView.Adapter<SubjectRecy
     @Override
     public void onBindViewHolder(SubjectViewHolder subjectViewHolder, int i) {
         SubjectItem thisSubjectItem = subjectItemList.get(i);
-        subjectViewHolder.subjectName.setText(thisSubjectItem.getSubjectName());
+        subjectViewHolder.subjectName.setText(thisSubjectItem.getSubjectName() + " (" +
+                thisSubjectItem.getCompletePerc() + "%)");
         subjectViewHolder.subjectPerc.setProgress(thisSubjectItem.getCompletePerc());
     }
 
@@ -47,18 +47,15 @@ public class SubjectRecyclerViewAdapter extends RecyclerView.Adapter<SubjectRecy
     public class SubjectViewHolder extends RecyclerView.ViewHolder {
         public TextView subjectName;
         public ProgressBar subjectPerc;
-        public AppCompatButton startDate;
-        public AppCompatButton dueDate;
+        public ButtonFlat startDate;
+        public ButtonFlat dueDate;
 
         public SubjectViewHolder(View v) {
             super(v);
             subjectName = (TextView) v.findViewById(R.id.subject_name);
-            startDate = (AppCompatButton) v.findViewById(R.id.start_date);
-            dueDate = (AppCompatButton) v.findViewById(R.id.due_date);
+            startDate = (ButtonFlat) v.findViewById(R.id.start_date);
+            dueDate = (ButtonFlat) v.findViewById(R.id.due_date);
             subjectPerc = (ProgressBar) v.findViewById(R.id.progressBar);
-            ColorStateList csl = ColorStateList.valueOf(v.getResources().getColor(R.color.card_comp));
-            startDate.setSupportBackgroundTintList(csl);
-            dueDate.setSupportBackgroundTintList(csl);
         }
     }
 }

@@ -33,7 +33,8 @@
                     android:gravity="center"
                     android:padding="10dp"
                     android:layout_alignStart="@id/card_holder"
-                    android:background="@color/card_comp"/>
+                    android:background="@color/card_comp"
+                    android:textColor="#ff191919"/>
 
             <ProgressBar
                     style="?android:attr/progressBarStyleHorizontal"
@@ -55,7 +56,7 @@
                     android:layout_above="@+id/progressBar"
                     android:weightSum="2">
 
-                <android.support.v7.widget.AppCompatButton
+                    <com.gc.materialdesign.views.ButtonFlat
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:text="Start Date"
@@ -67,9 +68,9 @@
                         android:layout_marginTop="-5dp"
                         android:layout_marginLeft="1dp"
                         android:layout_marginRight="-1dp"
-                        android:backgroundTint="@color/card_comp"/>
+                        android:background="#ff191919"/>
 
-                <android.support.v7.widget.AppCompatButton
+                    <com.gc.materialdesign.views.ButtonFlat
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:text="Due Date"
@@ -81,7 +82,7 @@
                         android:layout_marginTop="-5dp"
                         android:layout_marginLeft="-1dp"
                         android:layout_marginRight="1dp"
-                        android:backgroundTint="@color/card_comp"/>
+                        android:background="#ff191919"/>
             </LinearLayout>
         </RelativeLayout>
     </android.support.v7.widget.CardView>

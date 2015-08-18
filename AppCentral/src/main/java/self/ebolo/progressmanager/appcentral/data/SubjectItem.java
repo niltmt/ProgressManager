@@ -8,6 +8,7 @@ public class SubjectItem implements Serializable {
     private String subjectName;
     private int startDate;
     private int dueDate;
+    private String subjectDesc;
     private List<ActivityItem> subjectActList;
     private int completePerc;
 
@@ -32,6 +33,14 @@ public class SubjectItem implements Serializable {
 
     public void setSubjectName(String input) {
         subjectName = input;
+    }
+
+    public String getSubjectDesc() {
+        return subjectDesc;
+    }
+
+    public void setSubjectDesc(String input) {
+        subjectDesc = input;
     }
 
     public int getCompletePerc() {
