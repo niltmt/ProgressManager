@@ -14,7 +14,7 @@ repositories {
 
 android {
     compileSdkVersion 23
-    buildToolsVersion "20.0.0"
+    buildToolsVersion "23.0.0"
 
     defaultConfig {
         applicationId "self.ebolo.progressmanager.appcentral"
@@ -47,4 +47,5 @@ dependencies {
     compile 'com.github.navasmdc:MaterialDesign:1.5@aar'
     compile 'com.beardedhen:androidbootstrap:+'
     compile 'com.github.rey5137:material:1.2.1'
+    compile 'com.github.gabrielemariotti.cards:cardslib-core:2.1.0'
 }
