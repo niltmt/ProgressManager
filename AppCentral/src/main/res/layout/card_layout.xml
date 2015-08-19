@@ -8,32 +8,24 @@
             xmlns:android="http://schemas.android.com/apk/res/android"
             android:id="@+id/card_view"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="150dp"
             card_view:cardCornerRadius="0dp"
-            android:layout_margin="5dp">
+            android:layout_margin="5dp"
+            card_view:cardBackgroundColor="@color/card_bg">
 
         <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-            <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="150dp"
-                    android:id="@+id/card_holder"
-                    android:layout_alignParentStart="true"
-                    android:background="@color/card_bg"/>
-
-            <TextView
+            <com.beardedhen.androidbootstrap.BootstrapButton
                     android:id="@+id/subject_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Project Name"
-                    android:textSize="30dp"
-                    android:layout_margin="5dp"
-                    android:gravity="center"
-                    android:padding="10dp"
-                    android:layout_alignStart="@id/card_holder"
-                    android:background="@color/card_comp"
+                    android:textSize="35sp"
+                    android:layout_marginLeft="-1dp"
+                    android:layout_marginRight="-1dp"
+                    android:background="#ffffffff"
                     android:textColor="#ff191919"/>
 
             <ProgressBar
@@ -42,12 +34,11 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/progressBar"
                     android:progress="50"
-                    android:layout_alignBottom="@+id/card_holder"
-                    android:layout_alignParentStart="true"
+                    android:layout_alignParentStart="false"
                     android:progressDrawable="@drawable/progress_bar"
                     android:max="100"
                     android:indeterminate="false"
-                    />
+                    android:layout_alignParentBottom="true"/>
 
             <LinearLayout
                     android:layout_width="match_parent"

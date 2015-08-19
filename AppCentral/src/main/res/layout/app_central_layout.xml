@@ -13,11 +13,11 @@
 
     <com.gc.materialdesign.views.ButtonFloat
             android:id="@+id/app_fab"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
-                android:layout_alignParentBottom="true"
-            android:layout_marginRight="24dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginRight="25dp"
             android:background="@color/orange_primary_color"
             materialdesign:animate="true"
             materialdesign:iconDrawable="@drawable/fab_plus_icon"/>

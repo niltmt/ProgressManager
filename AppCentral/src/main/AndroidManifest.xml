@@ -6,7 +6,7 @@
 
     <uses-sdk
             android:minSdkVersion="18"
-            android:targetSdkVersion="23"/>
+            android:targetSdkVersion="22"/>
 
     <uses-permission
             android:name="android.permission.WRITE_EXTERNAL_STORAGE"
@@ -34,6 +34,15 @@
                 android:label=""
                 android:parentActivityName=".AppCentral"
                 android:theme="@style/AppThemeNAS">
+            <meta-data
+                    android:name="android.support.PARENT_ACTIVITY"
+                    android:value="self.ebolo.progressmanager.appcentral.AppCentral"/>
+        </activity>
+        <activity
+                android:name=".SubjectView"
+                android:label=""
+                android:parentActivityName=".AppCentral"
+                android:theme="@style/ThemeSV">
             <meta-data
                     android:name="android.support.PARENT_ACTIVITY"
                     android:value="self.ebolo.progressmanager.appcentral.AppCentral"/>

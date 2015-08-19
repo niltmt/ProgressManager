@@ -45,4 +45,6 @@ dependencies {
     compile 'com.nineoldandroids:library:2.4.0'
     compile 'com.wdullaer:materialdatetimepicker:1.4.2'
     compile 'com.github.navasmdc:MaterialDesign:1.5@aar'
+    compile 'com.beardedhen:androidbootstrap:+'
+    compile 'com.github.rey5137:material:1.2.1'
 }

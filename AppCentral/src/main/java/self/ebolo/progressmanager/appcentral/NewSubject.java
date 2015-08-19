@@ -11,7 +11,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
-import com.gc.materialdesign.views.ButtonFlat;
+import com.rey.material.widget.Button;
 import self.ebolo.progressmanager.appcentral.data.SubjectItem;
 
 
@@ -26,7 +26,7 @@ public class NewSubject extends AppCompatActivity {
 
         final EditText subjectNameInput = (EditText) findViewById(R.id.subject_name_input);
         final EditText subjectDescInput = (EditText) findViewById(R.id.subject_desc_input);
-        final ButtonFlat buttonDone = (ButtonFlat) findViewById(R.id.button_done);
+        final Button buttonDone = (Button) findViewById(R.id.button_done);
         buttonDone.setEnabled(false);
 
         subjectNameInput.addTextChangedListener(new TextWatcher() {

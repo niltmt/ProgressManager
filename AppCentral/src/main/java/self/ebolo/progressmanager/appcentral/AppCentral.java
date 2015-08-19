@@ -52,6 +52,16 @@ public class AppCentral extends AppCompatActivity {
                 startActivityForResult(newSubject, 1);
             }
         });
+
+        //Testing area - Must delete after done
+        testOnly();
+    }
+
+    private void testOnly() {
+        SubjectItem testSubj = new SubjectItem();
+        testSubj.setSubjectName("Testing");
+        testSubj.setCompletePerc(25);
+        databaseManagement.getSubjectList().add(testSubj);
     }
 
     @Override
