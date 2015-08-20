@@ -1,70 +1,115 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:tools="http://schemas.android.com/tools"
-                xmlns:card_view="http://schemas.android.com/apk/res-auto"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:paddingBottom="@dimen/activity_vertical_margin"
-                tools:context="self.ebolo.progressmanager.appcentral.NewSubject"
-                android:focusable="false">
-
-    <android.support.v7.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="225dp"
-            card_view:cardBackgroundColor="@color/blue_primary_color"
-            card_view:cardCornerRadius="0dp"
-            android:layout_marginLeft="-10dp"
-            android:layout_marginRight="-10dp"
-            android:layout_marginTop="-10dp"
-            card_view:cardElevation="5dp">
+<io.codetail.widget.RevealFrameLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        xmlns:cardview="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".NewSubject"
+        tools:ignore="MergeRootFrame">
 
         <RelativeLayout
+                android:layout_height="match_parent"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:background="@android:color/white">
 
-            <EditText
-                    android:layout_width="275dp"
+            <RelativeLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/subject_name_input"
+                    android:background="@color/orange_primary_color"
+                    android:id="@+id/new_subject_dummy"
                     android:layout_alignParentTop="true"
-                    android:layout_alignParentEnd="true"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginRight="20dp"
-                    android:textSize="40sp"
-                    android:hint="Title"
-                    android:textColor="#ffffffff"
-                    android:textColorHint="#8cffffff"
-                    android:backgroundTint="#ffffffff"
-                    android:singleLine="true"
-                    android:inputType="textCapWords"
-                    android:focusable="true"
-                    android:focusableInTouchMode="true"/>
+                    android:layout_alignTop="@+id/new_subject_title_holder"
+                    android:layout_alignBottom="@+id/new_subject_title_holder"
+                    android:visibility="invisible"/>
 
-            <EditText
-                    android:layout_width="275dp"
+            <android.support.v7.widget.CardView
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/subject_desc_input"
-                    android:layout_below="@+id/subject_name_input"
+                    android:orientation="vertical"
+                    cardview:cardBackgroundColor="@color/orange_primary_color"
+                    cardview:cardCornerRadius="0dp"
+                    tools:context=".NewSubject"
+                    tools:ignore="MergeRootFrame"
+                    android:layout_alignParentStart="true"
+                    android:transitionName="new_subject_holder"
+                    android:id="@+id/new_subject_title_holder"
+                    >
+
+                <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                    <android.support.v7.widget.Toolbar
+                            android:id="@+id/new_project_toolbar"
+                            android:layout_height="wrap_content"
+                            android:layout_width="match_parent"
+                            android:background="@color/orange_primary_color"/>
+
+                    <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="225dp"
+                            android:layout_below="@+id/new_project_toolbar">
+
+                        <EditText
+                                android:layout_width="275dp"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/subject_name_input"
+                                android:layout_alignParentTop="true"
+                                android:layout_alignParentEnd="true"
+                                android:layout_marginTop="20dp"
+                                android:layout_marginRight="20dp"
+                                android:textSize="40sp"
+                                android:hint="Title"
+                                android:textColor="#ffffffff"
+                                android:textColorHint="#8cffffff"
+                                android:backgroundTint="#ffffffff"
+                                android:singleLine="true"
+                                android:inputType="textCapWords"
+                                android:focusable="true"
+                                android:focusableInTouchMode="true"/>
+
+                        <EditText
+                                android:layout_width="275dp"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/subject_desc_input"
+                                android:layout_below="@+id/subject_name_input"
+                                android:layout_alignParentEnd="true"
+                                android:layout_marginTop="40dp"
+                                android:backgroundTint="#ffffffff"
+                                android:hint="Description"
+                                android:textColor="#ffffffff"
+                                android:textColorHint="#8cffffff"
+                                android:layout_marginEnd="20dp"
+                                android:textSize="20sp"/>
+                    </RelativeLayout>
+
+                </RelativeLayout>
+
+            </android.support.v7.widget.CardView>
+
+            <com.rey.material.widget.Button
+                    android:id="@+id/button_done"
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
                     android:layout_alignParentEnd="true"
-                    android:layout_marginTop="40dp"
-                    android:backgroundTint="#ffffffff"
-                    android:hint="Description"
-                    android:textColor="#ffffffff"
-                    android:textColorHint="#8cffffff"
-                    android:layout_marginRight="20dp"
-                    android:textSize="20dp"/>
+                    android:layout_alignParentBottom="true"
+                    android:text="Done"
+                    android:textColor="@drawable/done_button"
+                    android:textSize="25sp"
+                    style="@style/LightFlatButtonRippleStyle"
+                    android:layout_marginBottom="15dp"
+                    android:layout_marginRight="20dp"/>
+
         </RelativeLayout>
-    </android.support.v7.widget.CardView>
 
-    <com.rey.material.widget.Button
-            android:id="@+id/button_done"
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentBottom="true"
-            android:text="Done"
-            android:textColor="@drawable/done_button"
-            android:textSize="25sp"
-            android:layout_marginRight="15dp"
-            style="@style/LightFlatButtonRippleStyle"/>
+    <io.codetail.widget.RevealFrameLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:tools="http://schemas.android.com/tools"
+            xmlns:cardview="http://schemas.android.com/apk/res-auto"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/orange_primary_color"
+            android:visibility="invisible"
+            android:id="@+id/screen_cover"/>
 
-</RelativeLayout>
+</io.codetail.widget.RevealFrameLayout>

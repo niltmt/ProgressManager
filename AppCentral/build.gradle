@@ -1,15 +1,17 @@
 buildscript {
     repositories {
         jcenter()
+        maven { url "https://jitpack.io" }
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:1.2.2'
+        classpath 'com.android.tools.build:gradle:1.3.0'
     }
 }
 apply plugin: 'com.android.application'
 
 repositories {
     jcenter()
+    maven { url "https://jitpack.io" }
 }
 
 android {
@@ -37,15 +39,17 @@ android {
 }
 
 dependencies {
-    compile "com.android.support:support-v4:23.0.0"
-    compile "com.android.support:appcompat-v7:23.0.0"
-    compile "com.android.support:recyclerview-v7:23.0.0"
-    compile "com.android.support:cardview-v7:23.0.0"
-    compile 'com.github.shell-software:fab:1.1.2'
+    compile 'com.android.support:support-v4:23.0.0'
+    compile 'com.android.support:appcompat-v7:23.0.0'
+    compile 'com.android.support:recyclerview-v7:23.0.0'
+    compile 'com.android.support:cardview-v7:23.0.0'
     compile 'com.nineoldandroids:library:2.4.0'
     compile 'com.wdullaer:materialdatetimepicker:1.4.2'
     compile 'com.github.navasmdc:MaterialDesign:1.5@aar'
     compile 'com.beardedhen:androidbootstrap:+'
     compile 'com.github.rey5137:material:1.2.1'
     compile 'com.github.gabrielemariotti.cards:cardslib-core:2.1.0'
+    compile 'com.github.asyl.animation:arcanimator:1.0.0'
+
+    compile 'com.github.ozodrukh:CircularReveal:1.1.1@aar'
 }
