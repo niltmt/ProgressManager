@@ -1,6 +1,6 @@
 /*Main screen*/
 
-package self.ebolo.progressmanager.appcentral;
+package self.ebolo.progressmanager.appcentral.activities;
 
 import android.content.Intent;
 import android.os.Build;
@@ -23,12 +23,15 @@ import io.codetail.animation.SupportAnimator;
 import io.codetail.animation.ViewAnimationUtils;
 import io.codetail.animation.arcanimator.ArcAnimator;
 import io.codetail.animation.arcanimator.Side;
-import self.ebolo.progressmanager.appcentral.data.DatabaseManagement;
-import self.ebolo.progressmanager.appcentral.data.DeviceScreenInfo;
+import self.ebolo.progressmanager.appcentral.R;
+import self.ebolo.progressmanager.appcentral.adapters.SubjectRecyclerViewAdapter;
+import self.ebolo.progressmanager.appcentral.data.ActivityItem;
 import self.ebolo.progressmanager.appcentral.data.SubjectItem;
-import self.ebolo.progressmanager.appcentral.data.SubjectRecyclerViewAdapter;
+import self.ebolo.progressmanager.appcentral.data.TaskItem;
+import self.ebolo.progressmanager.appcentral.utils.DatabaseManagement;
+import self.ebolo.progressmanager.appcentral.utils.DeviceScreenInfo;
 
-public class AppCentral extends AppCompatActivity {
+public class AppCentralActivity extends AppCompatActivity {
     final private static AccelerateInterpolator ACCELERATE = new AccelerateInterpolator();
     final private static DecelerateInterpolator DECELERATE = new DecelerateInterpolator();
     AppCompatActivity thisAct;
@@ -49,7 +52,7 @@ public class AppCentral extends AppCompatActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.app_central_layout);
+        setContentView(R.layout.activity_app_central);
         ScreenInfo = new DeviceScreenInfo(this);
 
         databaseManagement = new DatabaseManagement();
@@ -85,8 +88,8 @@ public class AppCentral extends AppCompatActivity {
                 endBlueY = (int) (ScreenInfo.HeightPx * 0.7f);
 
                 ArcAnimator arcAnimator = ArcAnimator.createArcAnimator(appFAB, endBlueX,
-                        endBlueY, 30, Side.LEFT)
-                        .setDuration(ANIMDUR);
+                    endBlueY, 0, Side.LEFT)
+                    .setDuration(ANIMDUR);
                 arcAnimator.addListener(new SimpleListener() {
                     @Override
                     public void onAnimationEnd(Animator animation) {
@@ -95,6 +98,7 @@ public class AppCentral extends AppCompatActivity {
                     }
                 });
                 arcAnimator.start();
+
             }
         });
 
@@ -106,6 +110,10 @@ public class AppCentral extends AppCompatActivity {
         SubjectItem testSubj = new SubjectItem();
         testSubj.setSubjectName("Testing");
         testSubj.setCompletePerc(25);
+        TaskItem taskEg = new TaskItem("Test task", 50);
+        ActivityItem activityEg = new ActivityItem("Test Activity");
+        activityEg.addTask(taskEg);
+        testSubj.addAct(activityEg);
         databaseManagement.getSubjectList().add(testSubj);
     }
 
@@ -115,18 +123,18 @@ public class AppCentral extends AppCompatActivity {
         float finalRadius = Math.max(ScreenInfo.WidthPx, ScreenInfo.HeightPx) * 1.5f;
 
         SupportAnimator animator = ViewAnimationUtils.createCircularReveal(newSubjectScreen, endBlueX, endBlueY,
-                appFAB.getWidth() / 2f,
-                finalRadius);
+            appFAB.getWidth() / 2f,
+            finalRadius);
         animator.setDuration(ANIMDUR);
         animator.setInterpolator(ACCELERATE);
         animator.addListener(new SimpleListener() {
             @Override
             public void onAnimationEnd() {
                 dummy.setVisibility(View.VISIBLE);
-                Intent newSubject = new Intent(getApplicationContext(), NewSubject.class);
+                Intent newSubject = new Intent(getApplicationContext(), NewSubjectActivity.class);
                 if (Build.VERSION.SDK_INT > 20) {
                     ActivityOptionsCompat optionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation(
-                            thisAct, newSubjectScreen, "new_subject_holder"
+                        thisAct, newSubjectScreen, "new_subject_holder"
                     );
                     ActivityCompat.startActivityForResult(thisAct, newSubject, 1, optionsCompat.toBundle());
                 } else {
@@ -138,11 +146,11 @@ public class AppCentral extends AppCompatActivity {
         animator.start();
     }
 
-    void disappearBluePair() {
+    void disappearNewSubjectScreen() {
         float finalRadius = Math.max(ScreenInfo.WidthPx, ScreenInfo.HeightPx) * 1.5f;
         dummy.setVisibility(View.INVISIBLE);
         SupportAnimator animator = ViewAnimationUtils.createCircularReveal(newSubjectScreen, endBlueX, endBlueY,
-                finalRadius, appFAB.getWidth() / 2f);
+            finalRadius, appFAB.getWidth() / 2f);
         animator.setDuration(ANIMDUR);
         animator.addListener(new SimpleListener() {
             @Override
@@ -158,8 +166,8 @@ public class AppCentral extends AppCompatActivity {
     void returnBlue() {
         appFAB.setVisibility(View.VISIBLE);
         ArcAnimator arcAnimator = ArcAnimator.createArcAnimator(appFAB, startBlueX,
-                startBlueY, 30, Side.LEFT)
-                .setDuration(ANIMDUR);
+            startBlueY, 0, Side.LEFT)
+            .setDuration(ANIMDUR);
         arcAnimator.start();
 
     }
@@ -167,7 +175,7 @@ public class AppCentral extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
-        disappearBluePair();
+        disappearNewSubjectScreen();
 
         if (requestCode == 1) {
             if (resultCode == RESULT_OK) {

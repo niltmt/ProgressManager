@@ -1,4 +1,4 @@
-package self.ebolo.progressmanager.appcentral;
+package self.ebolo.progressmanager.appcentral.activities;
 
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
@@ -8,10 +8,11 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+import self.ebolo.progressmanager.appcentral.R;
 import self.ebolo.progressmanager.appcentral.data.SubjectItem;
 
 
-public class SubjectView extends AppCompatActivity {
+public class SubjectViewActivity extends AppCompatActivity {
     private int subjNum;
     private SubjectItem subj;
 

@@ -1,4 +1,4 @@
-package self.ebolo.progressmanager.appcentral.data;
+package self.ebolo.progressmanager.appcentral.adapters;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -11,7 +11,8 @@ import com.beardedhen.androidbootstrap.BootstrapButton;
 import com.gc.materialdesign.views.ButtonFlat;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 import self.ebolo.progressmanager.appcentral.R;
-import self.ebolo.progressmanager.appcentral.SubjectView;
+import self.ebolo.progressmanager.appcentral.activities.SubjectViewActivity;
+import self.ebolo.progressmanager.appcentral.data.SubjectItem;
 
 import java.util.Calendar;
 import java.util.List;
@@ -38,7 +39,7 @@ public class SubjectRecyclerViewAdapter extends RecyclerView.Adapter<SubjectRecy
         subjectViewHolder.subjectName.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent subjectview = new Intent(usingAct, SubjectView.class);
+                Intent subjectview = new Intent(usingAct, SubjectViewActivity.class);
                 subjectview.putExtra("selectedSubjNum", subjNum);
                 subjectview.putExtra("selectedSubj", thisSubjectItem);
                 usingAct.startActivity(subjectview);

@@ -1,4 +1,4 @@
-package self.ebolo.progressmanager.appcentral;
+package self.ebolo.progressmanager.appcentral.activities;
 
 import android.content.Intent;
 import android.os.Build;
@@ -7,48 +7,52 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.EditText;
 import android.widget.FrameLayout;
-import android.widget.RelativeLayout;
 import com.nineoldandroids.animation.Animator;
 import com.nineoldandroids.animation.ObjectAnimator;
 import com.rey.material.widget.Button;
 import io.codetail.animation.SupportAnimator;
-import self.ebolo.progressmanager.appcentral.data.DeviceScreenInfo;
+import self.ebolo.progressmanager.appcentral.R;
 import self.ebolo.progressmanager.appcentral.data.SubjectItem;
+import self.ebolo.progressmanager.appcentral.utils.DeviceScreenInfo;
 
 
-public class NewSubject extends AppCompatActivity {
+public class NewSubjectActivity extends AppCompatActivity {
     final private static AccelerateDecelerateInterpolator ACCELERATE_DECELERATE = new AccelerateDecelerateInterpolator();
     private DeviceScreenInfo ScreenInfo;
     private FrameLayout screenCover;
+    private ObjectAnimator screenAnim;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.new_subject_layout);
+        setContentView(R.layout.activity_new_subject);
+
         ScreenInfo = new DeviceScreenInfo(this);
+        final EditText subjectNameInput;
+        final EditText subjectDescInput;
+        final Button buttonDone;
+        final Button buttonCancel;
+
         if (Build.VERSION.SDK_INT < 21) {
-            RelativeLayout dummy = (RelativeLayout) findViewById(R.id.new_subject_dummy);
-            dummy.setVisibility(View.VISIBLE);
-            setTheme(R.style.Theme_NewSubject_Old);
-            screenCover = (FrameLayout) findViewById(R.id.screen_cover);
-            screenCover.setVisibility(View.VISIBLE);
+            oldSupportInit();
+            subjectNameInput = (EditText) findViewById(R.id.subject_name_input_old);
+            subjectDescInput = (EditText) findViewById(R.id.subject_desc_input_old);
+            buttonDone = (Button) findViewById(R.id.button_done_old);
+            buttonDone.setEnabled(false);
+            buttonCancel = (Button) findViewById(R.id.button_cancel_old);
             raise();
+        } else {
+            subjectNameInput = (EditText) findViewById(R.id.subject_name_input);
+            subjectDescInput = (EditText) findViewById(R.id.subject_desc_input);
+            buttonDone = (Button) findViewById(R.id.button_done);
+            buttonDone.setEnabled(false);
+            buttonCancel = (Button) findViewById(R.id.button_cancel);
         }
-
-        final EditText subjectNameInput = (EditText) findViewById(R.id.subject_name_input);
-        final EditText subjectDescInput = (EditText) findViewById(R.id.subject_desc_input);
-        final Button buttonDone = (Button) findViewById(R.id.button_done);
-        buttonDone.setEnabled(false);
-
-        Toolbar newProjectToolbar = (Toolbar) findViewById(R.id.new_project_toolbar);
-        setSupportActionBar(newProjectToolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         subjectNameInput.addTextChangedListener(new TextWatcher() {
             @Override
@@ -73,6 +77,7 @@ public class NewSubject extends AppCompatActivity {
                     buttonDone.setEnabled(true);
             }
         });
+
         buttonDone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -84,18 +89,33 @@ public class NewSubject extends AppCompatActivity {
                     Intent returnIntent = getIntent();
                     returnIntent.putExtra("subject", returnSubject);
                     setResult(RESULT_OK, returnIntent);
-                    if (Build.VERSION.SDK_INT < 21)
+                    if (Build.VERSION.SDK_INT < 21) {
                         down();
-                    finish();
-                    if (Build.VERSION.SDK_INT < 21)
-                        overridePendingTransition(0, 0);
+                        screenAnim.addListener(new SimpleListener() {
+                            @Override
+                            public void onAnimationEnd(Animator animation) {
+                                finish();
+                                overridePendingTransition(0, 0);
+                            }
+                        });
+                        screenAnim.setInterpolator(ACCELERATE_DECELERATE);
+                        screenAnim.start();
+                    } else
+                        finishAfterTransition();
                 }
+            }
+        });
+
+        buttonCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
             }
         });
     }
 
     private void raise() {
-        ObjectAnimator screenAnim = ObjectAnimator.ofInt(screenCover, "bottom", (int) ScreenInfo.HeightPx, 0);
+        screenAnim = ObjectAnimator.ofInt(screenCover, "bottom", (int) ScreenInfo.HeightPx, 0);
         screenAnim.addListener(new SimpleListener() {
             @Override
             public void onAnimationEnd(Animator animation) {
@@ -108,22 +128,7 @@ public class NewSubject extends AppCompatActivity {
 
     private void down() {
         screenCover.setVisibility(View.VISIBLE);
-        ObjectAnimator screenAnim = ObjectAnimator.ofInt(screenCover, "bottom", 0, (int) ScreenInfo.HeightPx);
-        screenAnim.addListener(new SimpleListener() {
-            @Override
-            public void onAnimationEnd(Animator animation) {
-                //do nothing
-            }
-        });
-        screenAnim.setInterpolator(ACCELERATE_DECELERATE);
-        screenAnim.start();
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_new_subject, menu);
-        return true;
+        screenAnim = ObjectAnimator.ofInt(screenCover, "bottom", 0, (int) ScreenInfo.HeightPx);
     }
 
     @Override
@@ -147,11 +152,30 @@ public class NewSubject extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        if (Build.VERSION.SDK_INT < 21)
+        if (Build.VERSION.SDK_INT < 21) {
             down();
-        super.onBackPressed();
-        if (Build.VERSION.SDK_INT < 21)
-            overridePendingTransition(0, 0);
+            screenAnim.addListener(new SimpleListener() {
+                @Override
+                public void onAnimationEnd(Animator animation) {
+                    finish();
+                    overridePendingTransition(0, 0);
+                }
+            });
+            screenAnim.setInterpolator(ACCELERATE_DECELERATE);
+            screenAnim.start();
+        } else
+            finishAfterTransition();
+    }
+
+
+    private void oldSupportInit() {
+        findViewById(R.id.new_subject_title_holder_old).setVisibility(View.VISIBLE);
+        findViewById(R.id.new_subject_title_holder).setVisibility(View.INVISIBLE);
+        findViewById(R.id.new_subject_text_edits_old).setVisibility(View.VISIBLE);
+        setTheme(R.style.Theme_NewSubject_Old);
+        screenCover = (FrameLayout) findViewById(R.id.screen_cover);
+        screenCover.setVisibility(View.VISIBLE);
+        ((Toolbar) findViewById(R.id.new_project_toolbar_old)).setContentInsetsAbsolute(0, 0);
     }
 
     private static class SimpleListener implements SupportAnimator.AnimatorListener, ObjectAnimator.AnimatorListener {

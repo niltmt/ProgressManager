@@ -89,14 +89,19 @@
     <orderEntry type="library" exported="" name="library-2.4.0" level="project" />
     <orderEntry type="library" exported="" name="cardview-v7-23.0.0" level="project" />
     <orderEntry type="library" exported="" name="material-1.2.1" level="project" />
+    <orderEntry type="library" exported="" name="cardslib-cards-2.1.0" level="project" />
     <orderEntry type="library" exported="" name="materialdatetimepicker-1.4.2" level="project" />
     <orderEntry type="library" exported="" name="arcanimator-1.0.0" level="project" />
+    <orderEntry type="library" exported="" name="lib-core-3.1.0" level="project" />
     <orderEntry type="library" exported="" name="appcompat-v7-23.0.0" level="project" />
     <orderEntry type="library" exported="" name="recyclerview-v7-23.0.0" level="project" />
     <orderEntry type="library" exported="" name="CircularReveal-1.1.1" level="project" />
+    <orderEntry type="library" exported="" name="cardslib-extra-dragdrop-2.1.0" level="project" />
     <orderEntry type="library" exported="" name="cardslib-core-2.1.0" level="project" />
+    <orderEntry type="library" exported="" name="cardslib-recyclerview-2.1.0" level="project" />
     <orderEntry type="library" exported="" name="support-v4-23.0.0" level="project" />
     <orderEntry type="library" exported="" name="androidbootstrap-1.2.3" level="project" />
     <orderEntry type="library" exported="" name="support-annotations-23.0.0" level="project" />
+    <orderEntry type="library" exported="" name="lib-manipulation-3.1.0" level="project" />
   </component>
 </module>

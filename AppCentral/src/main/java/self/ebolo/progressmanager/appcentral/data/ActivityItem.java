@@ -4,9 +4,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by YOLO on 8/17/2015.
- */
 public class ActivityItem implements Serializable {
     private String name;
     private List<TaskItem> activityTaskList;
@@ -27,15 +24,21 @@ public class ActivityItem implements Serializable {
     public void addTask(String taskName, int perc) {
         TaskItem taskItem = new TaskItem(taskName, perc);
         activityTaskList.add(taskItem);
+        percenCalc();
+    }
+
+    public void addTask(TaskItem item) {
+        activityTaskList.add(item);
+        percenCalc();
     }
 
     public int percenCalc() {
         percent = 0;
-        double generalTaskPerc = 100.0 / (double) activityTaskList.size();
 
-        if (activityTaskList != null) {
+        if (activityTaskList != null && activityTaskList.size() > 0) {
+            float generalTaskPerc = 100.0f / (float) activityTaskList.size();
             for (int i = 0; i < activityTaskList.size(); i++) {
-                percent += (int) Math.ceil((double) (activityTaskList.get(i).getTaskPercent()) * generalTaskPerc);
+                percent += (int) Math.ceil((float) (activityTaskList.get(i).getTaskPercent()) * generalTaskPerc);
             }
             if (percent > 100)
                 percent = 100;
