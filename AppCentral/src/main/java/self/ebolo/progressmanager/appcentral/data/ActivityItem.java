@@ -2,29 +2,16 @@ package self.ebolo.progressmanager.appcentral.data;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.List;
 
 public class ActivityItem implements Serializable {
     private String name;
-    private List<TaskItem> activityTaskList;
+    private ArrayList<TaskItem> activityTaskList;
     private int percent;
 
     public ActivityItem() {
         name = "";
         activityTaskList = new ArrayList<>();
         percent = 0;
-    }
-
-    public ActivityItem(String actName) {
-        name = actName;
-        activityTaskList = new ArrayList<>();
-        percent = 0;
-    }
-
-    public void addTask(String taskName, int perc) {
-        TaskItem taskItem = new TaskItem(taskName, perc);
-        activityTaskList.add(taskItem);
-        percenCalc();
     }
 
     public void addTask(TaskItem item) {

@@ -23,11 +23,10 @@ import io.codetail.animation.SupportAnimator;
 import io.codetail.animation.ViewAnimationUtils;
 import io.codetail.animation.arcanimator.ArcAnimator;
 import io.codetail.animation.arcanimator.Side;
+import io.paperdb.Paper;
 import self.ebolo.progressmanager.appcentral.R;
 import self.ebolo.progressmanager.appcentral.adapters.SubjectRecyclerViewAdapter;
-import self.ebolo.progressmanager.appcentral.data.ActivityItem;
 import self.ebolo.progressmanager.appcentral.data.SubjectItem;
-import self.ebolo.progressmanager.appcentral.data.TaskItem;
 import self.ebolo.progressmanager.appcentral.utils.DatabaseManagement;
 import self.ebolo.progressmanager.appcentral.utils.DeviceScreenInfo;
 
@@ -46,16 +45,23 @@ public class AppCentralActivity extends AppCompatActivity {
     private float startBlueY;
     private int endBlueX;
     private int endBlueY;
-    private int ANIMDUR = 400;
+    private int ANIMDUR = 300;
     private DeviceScreenInfo ScreenInfo;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_app_central);
-        ScreenInfo = new DeviceScreenInfo(this);
 
+        Paper.init(getApplicationContext());
         databaseManagement = new DatabaseManagement();
+
+        if (!Paper.exist("projects"))
+            Paper.put("projects", databaseManagement.subjectList);
+
+        databaseManagement.subjectList = Paper.get("projects");
+
+        ScreenInfo = new DeviceScreenInfo(this);
         newSubjectScreen = (FrameLayout) findViewById(R.id.new_subject_frame_layout);
         thisAct = this;
         dummy = (FrameLayout) findViewById(R.id.app_central_dummy);
@@ -74,7 +80,7 @@ public class AppCentralActivity extends AppCompatActivity {
         mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mRecyclerView.setLayoutManager(mLayoutManager);
 
-        mAdapter = new SubjectRecyclerViewAdapter(databaseManagement.getSubjectList(), this);
+        mAdapter = new SubjectRecyclerViewAdapter(databaseManagement.subjectList, this);
         mRecyclerView.setAdapter(mAdapter);
 
         appFAB = (FloatingActionButton) findViewById(R.id.app_fab);
@@ -101,20 +107,6 @@ public class AppCentralActivity extends AppCompatActivity {
 
             }
         });
-
-        //Testing area - Must delete after done
-        testOnly();
-    }
-
-    private void testOnly() {
-        SubjectItem testSubj = new SubjectItem();
-        testSubj.setSubjectName("Testing");
-        testSubj.setCompletePerc(25);
-        TaskItem taskEg = new TaskItem("Test task", 50);
-        ActivityItem activityEg = new ActivityItem("Test Activity");
-        activityEg.addTask(taskEg);
-        testSubj.addAct(activityEg);
-        databaseManagement.getSubjectList().add(testSubj);
     }
 
     private void appearNewSubjectScreen() {
@@ -180,7 +172,8 @@ public class AppCentralActivity extends AppCompatActivity {
         if (requestCode == 1) {
             if (resultCode == RESULT_OK) {
                 SubjectItem returnSubject = (SubjectItem) data.getSerializableExtra("subject");
-                databaseManagement.getSubjectList().add(returnSubject);
+                databaseManagement.subjectList.add(returnSubject);
+                Paper.put("projects", databaseManagement.subjectList);
                 mAdapter.notifyDataSetChanged();
             }
         }

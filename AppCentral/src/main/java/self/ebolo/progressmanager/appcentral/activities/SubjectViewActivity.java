@@ -11,10 +11,12 @@ import android.widget.TextView;
 import self.ebolo.progressmanager.appcentral.R;
 import self.ebolo.progressmanager.appcentral.data.SubjectItem;
 
+import java.util.ArrayList;
+
 
 public class SubjectViewActivity extends AppCompatActivity {
     private int subjNum;
-    private SubjectItem subj;
+    private ArrayList<SubjectItem> subjs;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,10 +24,10 @@ public class SubjectViewActivity extends AppCompatActivity {
         setContentView(R.layout.activity_subject_view);
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
-            subj = (SubjectItem) extras.getSerializable("selectedSubj");
+            subjs = (ArrayList<SubjectItem>) extras.getSerializable("subjList");
             subjNum = extras.getInt("selectedSubjNum");
         } else {
-            subj = null;
+            subjs = null;
             subjNum = 0;
         }
         //Customize the ActionBar
@@ -36,7 +38,7 @@ public class SubjectViewActivity extends AppCompatActivity {
                 ActionBar.LayoutParams.MATCH_PARENT,
                 Gravity.CENTER);
         TextView textviewTitle = (TextView) viewActionBar.findViewById(R.id.view_title);
-        textviewTitle.setText(subj.getSubjectName());
+        textviewTitle.setText(subjs.get(subjNum).getSubjectName());
         abar.setCustomView(viewActionBar, params);
         abar.setDisplayShowCustomEnabled(true);
         abar.setDisplayShowTitleEnabled(false);

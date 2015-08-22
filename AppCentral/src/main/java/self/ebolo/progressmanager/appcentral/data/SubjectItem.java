@@ -2,14 +2,13 @@ package self.ebolo.progressmanager.appcentral.data;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.List;
 
 public class SubjectItem implements Serializable {
     private String subjectName;
     private int startDate;
     private int dueDate;
     private String subjectDesc;
-    private List<ActivityItem> subjectActList;
+    private ArrayList<ActivityItem> subjectActList;
     private int completePerc;
 
     public SubjectItem() {
@@ -18,11 +17,6 @@ public class SubjectItem implements Serializable {
         completePerc = 0;
         startDate = 0;
         dueDate = 0;
-    }
-
-    public void addAct(String ActName) {
-        ActivityItem activityItem = new ActivityItem(ActName);
-        subjectActList.add(activityItem);
     }
 
     public void addAct(ActivityItem Act) {

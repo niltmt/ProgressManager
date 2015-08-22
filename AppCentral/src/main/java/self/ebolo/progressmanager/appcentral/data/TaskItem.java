@@ -14,11 +14,6 @@ public class TaskItem implements Serializable {
         taskPercent = 0;
     }
 
-    public TaskItem(String name, int perc) {
-        taskName = name;
-        taskPercent = perc;
-    }
-
     public String getTaskName() {
         return taskName;
     }

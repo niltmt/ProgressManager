@@ -10,19 +10,20 @@ import android.widget.ProgressBar;
 import com.beardedhen.androidbootstrap.BootstrapButton;
 import com.gc.materialdesign.views.ButtonFlat;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
+import io.paperdb.Paper;
 import self.ebolo.progressmanager.appcentral.R;
 import self.ebolo.progressmanager.appcentral.activities.SubjectViewActivity;
 import self.ebolo.progressmanager.appcentral.data.SubjectItem;
 
+import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.List;
 
 public class SubjectRecyclerViewAdapter extends RecyclerView.Adapter<SubjectRecyclerViewAdapter.SubjectViewHolder> {
-    private List<SubjectItem> subjectItemList;
+    private ArrayList<SubjectItem> subjectItemList;
     private AppCompatActivity usingAct;
     private SubjectRecyclerViewAdapter thisAdapter;
 
-    public SubjectRecyclerViewAdapter(List<SubjectItem> data, AppCompatActivity demo) {
+    public SubjectRecyclerViewAdapter(ArrayList<SubjectItem> data, AppCompatActivity demo) {
         subjectItemList = data;
         usingAct = demo;
         thisAdapter = this;
@@ -41,7 +42,7 @@ public class SubjectRecyclerViewAdapter extends RecyclerView.Adapter<SubjectRecy
             public void onClick(View v) {
                 Intent subjectview = new Intent(usingAct, SubjectViewActivity.class);
                 subjectview.putExtra("selectedSubjNum", subjNum);
-                subjectview.putExtra("selectedSubj", thisSubjectItem);
+                subjectview.putExtra("subjList", subjectItemList);
                 usingAct.startActivity(subjectview);
             }
         });
@@ -107,7 +108,7 @@ public class SubjectRecyclerViewAdapter extends RecyclerView.Adapter<SubjectRecy
                     );
                     dpd.setMinDate(now);
                 }
-                dpd.show(usingAct.getFragmentManager(), "datePicker");
+                dpd.show(usingAct.getFragmentManager(), "dueDatePicker");
             }
         });
 
@@ -170,6 +171,7 @@ public class SubjectRecyclerViewAdapter extends RecyclerView.Adapter<SubjectRecy
                 subjectItemList.get(i).setStartDate(date);
             else
                 subjectItemList.get(i).setDueDate(date);
+            Paper.put("projects", subjectItemList);
             thisAdapter.notifyDataSetChanged();
         }
     }
