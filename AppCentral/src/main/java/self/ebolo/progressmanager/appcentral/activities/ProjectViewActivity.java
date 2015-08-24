@@ -9,14 +9,14 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 import self.ebolo.progressmanager.appcentral.R;
-import self.ebolo.progressmanager.appcentral.data.SubjectItem;
+import self.ebolo.progressmanager.appcentral.data.ProjectItem;
 
 import java.util.ArrayList;
 
 
-public class SubjectViewActivity extends AppCompatActivity {
+public class ProjectViewActivity extends AppCompatActivity {
     private int subjNum;
-    private ArrayList<SubjectItem> subjs;
+    private ArrayList<ProjectItem> subjs;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,7 +24,7 @@ public class SubjectViewActivity extends AppCompatActivity {
         setContentView(R.layout.activity_subject_view);
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
-            subjs = (ArrayList<SubjectItem>) extras.getSerializable("subjList");
+            subjs = (ArrayList<ProjectItem>) extras.getSerializable("subjList");
             subjNum = extras.getInt("selectedSubjNum");
         } else {
             subjs = null;

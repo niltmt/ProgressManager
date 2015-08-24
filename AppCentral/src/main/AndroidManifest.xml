@@ -5,7 +5,7 @@
           android:versionName="1.0">
 
     <uses-sdk
-            android:minSdkVersion="18"
+            android:minSdkVersion="16"
             android:targetSdkVersion="22"/>
 
     <uses-permission
@@ -30,7 +30,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activities.NewSubjectActivity"
+            android:name=".activities.NewProjectActivity"
                 android:label=""
             android:parentActivityName=".activities.AppCentralActivity"
                 android:theme="@style/Theme_NewSubject">
@@ -39,7 +39,7 @@
                     android:value=".activities.AppCentralActivity"/>
         </activity>
         <activity
-            android:name=".activities.SubjectViewActivity"
+            android:name=".activities.ProjectViewActivity"
                 android:label=""
             android:parentActivityName=".activities.AppCentralActivity"
                 android:theme="@style/Theme_SubjectView">

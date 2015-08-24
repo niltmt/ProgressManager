@@ -3,7 +3,7 @@ package self.ebolo.progressmanager.appcentral.data;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-public class SubjectItem implements Serializable {
+public class ProjectItem implements Serializable {
     private String subjectName;
     private int startDate;
     private int dueDate;
@@ -11,7 +11,7 @@ public class SubjectItem implements Serializable {
     private ArrayList<ActivityItem> subjectActList;
     private int completePerc;
 
-    public SubjectItem() {
+    public ProjectItem() {
         subjectName = "";
         subjectActList = new ArrayList<>();
         completePerc = 0;

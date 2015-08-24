@@ -17,11 +17,11 @@ import com.nineoldandroids.animation.ObjectAnimator;
 import com.rey.material.widget.Button;
 import io.codetail.animation.SupportAnimator;
 import self.ebolo.progressmanager.appcentral.R;
-import self.ebolo.progressmanager.appcentral.data.SubjectItem;
+import self.ebolo.progressmanager.appcentral.data.ProjectItem;
 import self.ebolo.progressmanager.appcentral.utils.DeviceScreenInfo;
 
 
-public class NewSubjectActivity extends AppCompatActivity {
+public class NewProjectActivity extends AppCompatActivity {
     final private static AccelerateDecelerateInterpolator ACCELERATE_DECELERATE = new AccelerateDecelerateInterpolator();
     private DeviceScreenInfo ScreenInfo;
     private FrameLayout screenCover;
@@ -82,7 +82,7 @@ public class NewSubjectActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (buttonDone.isEnabled()) {
-                    SubjectItem returnSubject = new SubjectItem();
+                    ProjectItem returnSubject = new ProjectItem();
                     returnSubject.setSubjectName(subjectNameInput.getText().toString());
                     if (!isEmpty(subjectDescInput))
                         returnSubject.setSubjectDesc(subjectDescInput.getText().toString());
@@ -99,7 +99,7 @@ public class NewSubjectActivity extends AppCompatActivity {
                             }
                         });
                         screenAnim.setInterpolator(ACCELERATE_DECELERATE);
-                        screenAnim.start();
+                        screenAnim.setDuration(300).start();
                     } else
                         finishAfterTransition();
                 }
@@ -123,7 +123,7 @@ public class NewSubjectActivity extends AppCompatActivity {
             }
         });
         screenAnim.setInterpolator(ACCELERATE_DECELERATE);
-        screenAnim.start();
+        screenAnim.setDuration(300).start();
     }
 
     private void down() {
@@ -162,7 +162,7 @@ public class NewSubjectActivity extends AppCompatActivity {
                 }
             });
             screenAnim.setInterpolator(ACCELERATE_DECELERATE);
-            screenAnim.start();
+            screenAnim.setDuration(300).start();
         } else
             finishAfterTransition();
     }
