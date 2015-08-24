@@ -57,5 +57,4 @@ dependencies {
     compile 'com.github.gabrielemariotti.cards:cardslib-extra-dragdrop:2.1.0'
 
     compile 'io.paperdb:paperdb:0.9'
-    compile 'com.marshalchen.ultimaterecyclerview:library:0.3.12'
 }

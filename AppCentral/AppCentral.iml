@@ -87,7 +87,6 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" exported="" name="material-1.2.1" level="project" />
     <orderEntry type="library" exported="" name="asm-5.0.3" level="project" />
-    <orderEntry type="library" exported="" name="ultra-ptr-1.0.10" level="project" />
     <orderEntry type="library" exported="" name="materialdatetimepicker-1.4.2" level="project" />
     <orderEntry type="library" exported="" name="appcompat-v7-23.0.0" level="project" />
     <orderEntry type="library" exported="" name="recyclerview-v7-23.0.0" level="project" />
@@ -99,11 +98,9 @@
     <orderEntry type="library" exported="" name="support-annotations-23.0.0" level="project" />
     <orderEntry type="library" exported="" name="objenesis-2.1" level="project" />
     <orderEntry type="library" exported="" name="lib-manipulation-3.1.0" level="project" />
-    <orderEntry type="library" exported="" name="glide-3.6.0" level="project" />
     <orderEntry type="library" exported="" name="MaterialDesign-1.5" level="project" />
     <orderEntry type="library" exported="" name="library-2.4.0" level="project" />
     <orderEntry type="library" exported="" name="kryo-serializers-0.30" level="project" />
-    <orderEntry type="library" exported="" name="library-0.3.12" level="project" />
     <orderEntry type="library" exported="" name="minlog-1.3.0" level="project" />
     <orderEntry type="library" exported="" name="cardview-v7-23.0.0" level="project" />
     <orderEntry type="library" exported="" name="cardslib-cards-2.1.0" level="project" />
