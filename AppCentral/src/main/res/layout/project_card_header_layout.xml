@@ -54,7 +54,7 @@
         <!-- Expand/Collapse button. It shows/hides a Hidden Frame-->
         <ImageButton
             android:id="@+id/card_header_button_expand"
-            style="@style/card.native.header_button_base.expand"
+            style="@style/CardExpandButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 

@@ -2,7 +2,6 @@ package self.ebolo.progressmanager.appcentral.cards;
 
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
-import com.marshalchen.ultimaterecyclerview.itemTouchHelper.ItemTouchHelperAdapter;
 import self.ebolo.progressmanager.appcentral.adapters.ProjectCardTouchHelperAdapter;
 
 public class CardTouchHelperCallback extends ItemTouchHelper.Callback {

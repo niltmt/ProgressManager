@@ -2,7 +2,6 @@
 
 package self.ebolo.progressmanager.appcentral.activities;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -10,16 +9,12 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.FrameLayout;
-import android.widget.TextView;
-import com.marshalchen.ultimaterecyclerview.itemTouchHelper.ItemTouchHelperAdapter;
 import com.nineoldandroids.animation.Animator;
 import com.nineoldandroids.animation.ObjectAnimator;
 import com.nineoldandroids.view.ViewHelper;
@@ -29,10 +24,6 @@ import io.codetail.animation.ViewAnimationUtils;
 import io.codetail.animation.arcanimator.ArcAnimator;
 import io.codetail.animation.arcanimator.Side;
 import io.paperdb.Paper;
-import it.gmariotti.cardslib.library.internal.Card;
-import it.gmariotti.cardslib.library.internal.CardExpand;
-import it.gmariotti.cardslib.library.internal.CardHeader;
-import it.gmariotti.cardslib.library.recyclerview.internal.CardArrayRecyclerViewAdapter;
 import it.gmariotti.cardslib.library.recyclerview.view.CardRecyclerView;
 import self.ebolo.progressmanager.appcentral.R;
 import self.ebolo.progressmanager.appcentral.adapters.ProjectCardRecyclerAdapter;
@@ -40,8 +31,6 @@ import self.ebolo.progressmanager.appcentral.cards.CardTouchHelperCallback;
 import self.ebolo.progressmanager.appcentral.data.ProjectItem;
 import self.ebolo.progressmanager.appcentral.utils.DatabaseManagement;
 import self.ebolo.progressmanager.appcentral.utils.DeviceScreenInfo;
-
-import java.util.ArrayList;
 
 public class AppCentralActivity extends AppCompatActivity {
     final private static AccelerateInterpolator ACCELERATE = new AccelerateInterpolator();
@@ -51,7 +40,6 @@ public class AppCentralActivity extends AppCompatActivity {
 
     private CardRecyclerView mRecyclerView;
     private ProjectCardRecyclerAdapter mAdapter;
-    private ArrayList<Card> projectCards;
     private DatabaseManagement databaseManagement;
 
     private FloatingActionButton appFAB;
@@ -71,18 +59,11 @@ public class AppCentralActivity extends AppCompatActivity {
 
         Paper.init(getApplicationContext());
         databaseManagement = new DatabaseManagement();
-        projectCards = new ArrayList<>();
 
         if (!Paper.exist("projects"))
             Paper.put("projects", databaseManagement.subjectList);
 
         databaseManagement.subjectList = Paper.get("projects");
-
-        if (databaseManagement.subjectList != null && databaseManagement.subjectList.size() > 0) {
-            for (int i = 0; i < databaseManagement.subjectList.size(); i++) {
-                addNewCard(databaseManagement.subjectList.get(i));
-            }
-        }
 
         ScreenInfo = new DeviceScreenInfo(this);
         newSubjectScreen = (FrameLayout) findViewById(R.id.new_subject_frame_layout);
@@ -118,10 +99,10 @@ public class AppCentralActivity extends AppCompatActivity {
             }
         });
 
-        mAdapter = new ProjectCardRecyclerAdapter(this, projectCards, databaseManagement.subjectList);
         mRecyclerView = (CardRecyclerView)findViewById(R.id.app_central_recyclerview);
         mRecyclerView.setHasFixedSize(false);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+        mAdapter = new ProjectCardRecyclerAdapter(this, databaseManagement.subjectList);
         mRecyclerView.setAdapter(mAdapter);
 
         ItemTouchHelper.Callback callback = new CardTouchHelperCallback(mAdapter);
@@ -192,9 +173,10 @@ public class AppCentralActivity extends AppCompatActivity {
         if (requestCode == 1) {
             if (resultCode == RESULT_OK) {
                 ProjectItem returnSubject = (ProjectItem) data.getSerializableExtra("subject");
-                databaseManagement.subjectList.add(returnSubject);
+                databaseManagement.subjectList.add(0, returnSubject);
                 Paper.put("projects", databaseManagement.subjectList);
-                addNewCard(returnSubject);
+                mAdapter.notifyItemInserted(0);
+                mRecyclerView.smoothScrollToPosition(0);
             }
         }
     }
@@ -230,58 +212,6 @@ public class AppCentralActivity extends AppCompatActivity {
 
         @Override
         public void onAnimationRepeat(Animator animation) {
-        }
-    }
-
-    private void addNewCard(ProjectItem proj) {
-        Card card = new Card(this);
-
-        ProjectCardHeader projectCardHeader = new ProjectCardHeader(this, proj.getSubjectName());
-        projectCardHeader.setButtonExpandVisible(true);
-        card.addCardHeader(projectCardHeader);
-
-        card.addCardExpand(new ProjectCardExpand(this, proj));
-
-        card.setSwipeable(true);
-        projectCards.add(card);
-    }
-
-    private class ProjectCardExpand extends CardExpand {
-        private TextView projectCardInfo;
-        private final ProjectItem projectItem;
-
-        public ProjectCardExpand(Context context, ProjectItem data) {
-            super(context, R.layout.project_card_expand);
-            projectItem = data;
-        }
-
-        @Override
-        public void setupInnerViewElements(ViewGroup parent, View view) {
-            if (view != null) {
-                projectCardInfo = (TextView)view.findViewById(R.id.project_card_info);
-                if (projectCardInfo != null) {
-                    projectCardInfo.setText(projectItem.getSubjectName());
-                }
-            }
-        }
-    }
-
-    private class ProjectCardHeader extends CardHeader {
-        private String stringTitle;
-
-        public ProjectCardHeader(Context context, String titleInput) {
-            super(context, R.layout.project_card_header_inner);
-            stringTitle = titleInput;
-        }
-
-        @Override
-        public void setupInnerViewElements(ViewGroup parent, View view) {
-            if (view != null) {
-                TextView projectCardTitle = (TextView)view.findViewById(R.id.projet_card_title);
-                if (projectCardTitle != null) {
-                    projectCardTitle.setText(stringTitle);
-                }
-            }
         }
     }
 }

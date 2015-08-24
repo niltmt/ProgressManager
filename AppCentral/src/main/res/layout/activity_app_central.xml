@@ -21,7 +21,7 @@
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
             android:minHeight="@dimen/action_bar_height"
-            android:background="@color/orange_primary_color"/>
+            android:background="@color/primary_color"/>
 
         <FrameLayout
             android:id="@+id/container"
@@ -32,7 +32,7 @@
             <it.gmariotti.cardslib.library.recyclerview.view.CardRecyclerView
                 android:id="@+id/app_central_recyclerview"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 card:list_card_layout_resourceID="@layout/project_card"/>
 
         </FrameLayout>
@@ -51,7 +51,7 @@
         android:id="@+id/new_subject_frame_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/orange_primary_color"
+        android:background="@color/primary_color"
         android:transitionName="new_subject_holder"
         android:visibility="invisible"/>
 

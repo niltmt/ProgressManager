@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <color name="primary_color">#795548</color>
+    <color name="primary_color_dark">#5D4037</color>
     <color name="orange_primary_color">#EF9801</color>
     <color name="orange_primary_color_dark">#BF7A01</color>
     <color name="blue_primary_color">#3B5998</color>
     <color name="blue_primary_color_dark">#2F487A</color>
-    <color name="green_primary_color">#19A993</color>
-    <color name="green_primary_color_dark">#148776</color>
+    <color name="green_primary_color">#43A047</color>
+    <color name="green_primary_color_dark">#2E7D32</color>
     <color name="card_bg">#FFFFFF</color>
     <color name="progress_bg">#F0F0F0</color>
     <color name="card_comp">#FFFFFF</color>

@@ -1,24 +1,36 @@
 package self.ebolo.progressmanager.appcentral.activities;
 
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.AccelerateDecelerateInterpolator;
-import android.widget.EditText;
+import android.view.inputmethod.InputMethodManager;
+import com.rengwuxian.materialedittext.MaterialEditText;
 import android.widget.FrameLayout;
 import com.nineoldandroids.animation.Animator;
 import com.nineoldandroids.animation.ObjectAnimator;
 import com.rey.material.widget.Button;
 import io.codetail.animation.SupportAnimator;
+import it.gmariotti.cardslib.library.internal.Card;
+import it.gmariotti.cardslib.library.internal.CardExpand;
+import it.gmariotti.cardslib.library.internal.CardHeader;
+import it.gmariotti.cardslib.library.recyclerview.internal.CardArrayRecyclerViewAdapter;
+import it.gmariotti.cardslib.library.recyclerview.view.CardRecyclerView;
+import it.gmariotti.cardslib.library.view.CardViewNative;
 import self.ebolo.progressmanager.appcentral.R;
 import self.ebolo.progressmanager.appcentral.data.ProjectItem;
 import self.ebolo.progressmanager.appcentral.utils.DeviceScreenInfo;
+
+import java.util.ArrayList;
 
 
 public class NewProjectActivity extends AppCompatActivity {
@@ -33,26 +45,31 @@ public class NewProjectActivity extends AppCompatActivity {
         setContentView(R.layout.activity_new_subject);
 
         ScreenInfo = new DeviceScreenInfo(this);
-        final EditText subjectNameInput;
-        final EditText subjectDescInput;
+        final MaterialEditText subjectNameInput;
+        final MaterialEditText subjectDescInput;
         final Button buttonDone;
         final Button buttonCancel;
 
         if (Build.VERSION.SDK_INT < 21) {
             oldSupportInit();
-            subjectNameInput = (EditText) findViewById(R.id.subject_name_input_old);
-            subjectDescInput = (EditText) findViewById(R.id.subject_desc_input_old);
+            subjectNameInput = (MaterialEditText) findViewById(R.id.subject_name_input_old);
+            subjectDescInput = (MaterialEditText) findViewById(R.id.subject_desc_input_old);
             buttonDone = (Button) findViewById(R.id.button_done_old);
-            buttonDone.setEnabled(false);
             buttonCancel = (Button) findViewById(R.id.button_cancel_old);
             raise();
         } else {
-            subjectNameInput = (EditText) findViewById(R.id.subject_name_input);
-            subjectDescInput = (EditText) findViewById(R.id.subject_desc_input);
+            subjectNameInput = (MaterialEditText) findViewById(R.id.subject_name_input);
+            subjectDescInput = (MaterialEditText) findViewById(R.id.subject_desc_input);
             buttonDone = (Button) findViewById(R.id.button_done);
-            buttonDone.setEnabled(false);
             buttonCancel = (Button) findViewById(R.id.button_cancel);
         }
+
+        //Edit Text Decoration
+        editTextSetUp(subjectNameInput, Color.WHITE, "Title");
+        editTextSetUp(subjectDescInput, Color.WHITE, "Description");
+
+        buttonDone.setEnabled(false);
+        //final InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
 
         subjectNameInput.addTextChangedListener(new TextWatcher() {
             @Override
@@ -89,6 +106,7 @@ public class NewProjectActivity extends AppCompatActivity {
                     Intent returnIntent = getIntent();
                     returnIntent.putExtra("subject", returnSubject);
                     setResult(RESULT_OK, returnIntent);
+                    //inputMethodManager.hideSoftInputFromWindow(v.getWindowToken(), 0);
                     if (Build.VERSION.SDK_INT < 21) {
                         down();
                         screenAnim.addListener(new SimpleListener() {
@@ -109,9 +127,11 @@ public class NewProjectActivity extends AppCompatActivity {
         buttonCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //inputMethodManager.hideSoftInputFromWindow(v.getWindowToken(), 0);
                 onBackPressed();
             }
         });
+        //inputMethodManager.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
     }
 
     private void raise() {
@@ -146,7 +166,7 @@ public class NewProjectActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    private boolean isEmpty(EditText etText) {
+    private boolean isEmpty(MaterialEditText etText) {
         return etText.getText().toString().trim().length() == 0;
     }
 
@@ -176,6 +196,15 @@ public class NewProjectActivity extends AppCompatActivity {
         screenCover = (FrameLayout) findViewById(R.id.screen_cover);
         screenCover.setVisibility(View.VISIBLE);
         ((Toolbar) findViewById(R.id.new_project_toolbar_old)).setContentInsetsAbsolute(0, 0);
+    }
+
+    private void editTextSetUp(MaterialEditText editText, int color, String floatingText) {
+        editText.setBaseColor(color);
+        editText.setPrimaryColor(color);
+        editText.setTextColor(color);
+        editText.setFloatingLabel(MaterialEditText.FLOATING_LABEL_HIGHLIGHT);
+        editText.setFloatingLabelText(floatingText);
+        editText.setSingleLineEllipsis(true);
     }
 
     private static class SimpleListener implements SupportAnimator.AnimatorListener, ObjectAnimator.AnimatorListener {
