@@ -27,6 +27,13 @@ public class NewProjectActivity extends AppCompatActivity {
     private FrameLayout screenCover;
     private ObjectAnimator screenAnim;
 
+    private final String[] COLOR_CODE = {"#F44336", "#E91E63", "#9C27B0", "#673AB7", "#3F51B5"
+        , "#2196F3", "#03A9F4", "#00BCD4", "#009688", "#4CAF50", "#8BC34A", "#FF9800", "#795548", "#607D8B"};
+
+    private final int[] COLOR_ID = {R.color.google_blue, R.color.google_brown, R.color.google_cyan
+        , R.color.google_green, R.color.google_grey, R.color.google_indigo, R.color.google_orange
+        , R.color.google_pink, R.color.google_purple, R.color.google_red, R.color.google_teal};
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -87,10 +94,12 @@ public class NewProjectActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (buttonDone.isEnabled()) {
+                    int colorID = (int) (Math.random() * COLOR_CODE.length);
                     ProjectItem returnSubject = new ProjectItem();
                     returnSubject.setSubjectName(subjectNameInput.getText().toString());
                     if (!isEmpty(subjectDescInput))
                         returnSubject.setSubjectDesc(subjectDescInput.getText().toString());
+                    returnSubject.setColor(COLOR_CODE[colorID]);
                     Intent returnIntent = getIntent();
                     returnIntent.putExtra("subject", returnSubject);
                     setResult(RESULT_OK, returnIntent);

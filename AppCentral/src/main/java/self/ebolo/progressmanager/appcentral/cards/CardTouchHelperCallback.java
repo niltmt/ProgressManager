@@ -1,7 +1,9 @@
 package self.ebolo.progressmanager.appcentral.cards;
 
+import android.graphics.Canvas;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
+import com.rey.material.widget.SnackBar;
 import self.ebolo.progressmanager.appcentral.adapters.ProjectCardTouchHelperAdapter;
 
 public class CardTouchHelperCallback extends ItemTouchHelper.Callback {
@@ -38,5 +40,21 @@ public class CardTouchHelperCallback extends ItemTouchHelper.Callback {
         mAdapter.onItemMove(viewHolder.getAdapterPosition(),
             target.getAdapterPosition());
         return true;
+    }
+
+    @Override
+    public void onChildDraw(Canvas c, RecyclerView recyclerView,
+                            RecyclerView.ViewHolder viewHolder, float dX, float dY,
+                            int actionState, boolean isCurrentlyActive) {
+
+        if (actionState == ItemTouchHelper.ACTION_STATE_SWIPE) {
+            float width = (float) viewHolder.itemView.getWidth();
+            float alpha = 1.0f - Math.abs(dX) / width;
+            viewHolder.itemView.setAlpha(alpha);
+            viewHolder.itemView.setTranslationX(dX);
+        } else {
+            super.onChildDraw(c, recyclerView, viewHolder, dX, dY,
+                actionState, isCurrentlyActive);
+        }
     }
 }

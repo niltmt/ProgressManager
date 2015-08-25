@@ -38,7 +38,7 @@
     <style name="LightFABColor" parent="Material.Drawable.Ripple.Touch.Light">
         <item name="rd_rippleColor">#33000000</item>
         <item name="fab_backgroundColor">@color/primary_color</item>
-        <item name="fab_elevation">4dp</item>
+        <item name="fab_elevation">2dp</item>
         <item name="fab_iconLineMorphing">@style/LightFloatingActionButtonIcon</item>
         <item name="rd_delayClick">untilRelease</item>
     </style>
@@ -62,7 +62,7 @@
     </style>
 
     <style name="ProjectCardHeaderOuter">
-        <item name="android:background">@android:color/white</item>
+        <item name="android:background">@android:color/transparent</item>
     </style>
 
     <style name="ProjectCardHeaderInner"
@@ -71,6 +71,25 @@
 
     <style name="CardExpandButton" parent="card.native.header_button_base.expand">
         <item name="android:background">@drawable/ripple</item>
+        <item name="android:padding">2dp</item>
+    </style>
+
+    <style name="ProjectCardContent" parent="card.native.content_outer_layout">
+        <item name="android:layout_margin">0dp</item>
+        <item name="android:padding">0dp</item>
+    </style>
+
+    <style name="ProjectCardMainForeground" parent="card.native.main_layout_foreground">
+        <item name="android:padding">0dp</item>
+        <item name="android:background">@null</item>
+        <item name="android:foreground">@null</item>
+    </style>
+
+    <style name="SnackBarUndoRemove" parent="Material.Widget.SnackBar.Mobile">
+        <item name="sb_text">Undo the removal?</item>
+        <item name="sb_actionText">YES</item>
+        <item name="sb_duration">5000</item>
+        <item name="sb_actionTextColor">#FFFFFFFF</item>
     </style>
 
 </resources>

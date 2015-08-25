@@ -19,6 +19,7 @@ import com.nineoldandroids.animation.Animator;
 import com.nineoldandroids.animation.ObjectAnimator;
 import com.nineoldandroids.view.ViewHelper;
 import com.rey.material.widget.FloatingActionButton;
+import com.rey.material.widget.SnackBar;
 import io.codetail.animation.SupportAnimator;
 import io.codetail.animation.ViewAnimationUtils;
 import io.codetail.animation.arcanimator.ArcAnimator;
@@ -36,7 +37,7 @@ public class AppCentralActivity extends AppCompatActivity {
     final private static AccelerateInterpolator ACCELERATE = new AccelerateInterpolator();
     final private static DecelerateInterpolator DECELERATE = new DecelerateInterpolator();
 
-    AppCompatActivity thisAct;
+    private AppCompatActivity thisAct;
 
     private CardRecyclerView mRecyclerView;
     private ProjectCardRecyclerAdapter mAdapter;
@@ -52,10 +53,13 @@ public class AppCentralActivity extends AppCompatActivity {
     private int ANIMDUR = 300;
     private DeviceScreenInfo ScreenInfo;
 
+    private SnackBar snackBar;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_app_central);
+        snackBar = (SnackBar)findViewById(R.id.app_central_snackbar);
 
         Paper.init(getApplicationContext());
         databaseManagement = new DatabaseManagement();
@@ -103,6 +107,7 @@ public class AppCentralActivity extends AppCompatActivity {
         mRecyclerView.setHasFixedSize(false);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         mAdapter = new ProjectCardRecyclerAdapter(this, databaseManagement.subjectList);
+        mAdapter.setCardRecyclerView(mRecyclerView);
         mRecyclerView.setAdapter(mAdapter);
 
         ItemTouchHelper.Callback callback = new CardTouchHelperCallback(mAdapter);
@@ -179,6 +184,10 @@ public class AppCentralActivity extends AppCompatActivity {
                 mRecyclerView.smoothScrollToPosition(0);
             }
         }
+    }
+
+    public SnackBar getSnackBar() {
+        return snackBar;
     }
 
     private static class SimpleListener implements SupportAnimator.AnimatorListener, ObjectAnimator.AnimatorListener {

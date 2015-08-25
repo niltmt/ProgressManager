@@ -10,6 +10,7 @@ public class ProjectItem implements Serializable {
     private String subjectDesc;
     private ArrayList<ActivityItem> subjectActList;
     private int completePerc;
+    private String color;
 
     public ProjectItem() {
         subjectName = "";
@@ -80,4 +81,10 @@ public class ProjectItem implements Serializable {
     public void setDueDate(int date) {
         dueDate = date;
     }
+
+    public void setColor(String hexCode) {
+        color = hexCode;
+    }
+
+    public String getColor() { return color; }
 }

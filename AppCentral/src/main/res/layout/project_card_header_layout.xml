@@ -26,6 +26,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
                 android:layout_alignParentLeft="true"
+                android:id="@+id/project_card_header"
                 style="@style/ProjectCardHeaderOuter">
 
     <!-- This is the Inner Content Header which you can populate runtime
@@ -42,7 +43,8 @@
         android:id="@+id/card_header_button_frame"
         style="@style/card.native.header_button_frame"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginRight="10dp">
 
         <!-- overflow button. It has a Popup Menu -->
         <ImageButton
