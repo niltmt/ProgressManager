@@ -57,14 +57,6 @@
         android:transitionName="new_subject_holder"
         android:visibility="invisible"/>
 
-    <com.rey.material.widget.FloatingActionButton
-        android:id="@+id/app_fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        style="@style/LightFABColor"
-        android:layout_gravity="bottom|right"
-        android:layout_marginBottom="15dp"
-        android:layout_marginRight="20dp"/>
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -75,9 +67,22 @@
             android:layout_height="wrap_content"
             android:id="@+id/app_central_snackbar"
             android:layout_alignParentBottom="true"
-            android:visibility="invisible">
+            android:visibility="invisible"
+            android:layout_toStartOf="@+id/app_fab"
+            android:layout_marginRight="10dp"
+            />
 
-        </com.rey.material.widget.SnackBar>
+        <com.rey.material.widget.FloatingActionButton
+            android:id="@+id/app_fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/LightFABColor"
+            android:layout_gravity="bottom|right"
+            android:layout_marginBottom="15dp"
+            android:layout_marginRight="20dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"/>
 
     </RelativeLayout>
 

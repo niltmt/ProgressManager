@@ -90,6 +90,9 @@
         <item name="sb_actionText">YES</item>
         <item name="sb_duration">5000</item>
         <item name="sb_actionTextColor">#FFFFFFFF</item>
+        <item name="sb_marginBottom">21dp</item>
+        <item name="sb_inAnimation">@android:anim/slide_in_left</item>
+        <item name="sb_outAnimation">@anim/slide_out</item>
     </style>
 
 </resources>
