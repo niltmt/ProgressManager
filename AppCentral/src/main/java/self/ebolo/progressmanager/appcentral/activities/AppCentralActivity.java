@@ -15,15 +15,15 @@ import android.view.View;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.FrameLayout;
+
 import com.nineoldandroids.animation.Animator;
 import com.nineoldandroids.animation.ObjectAnimator;
 import com.nineoldandroids.view.ViewHelper;
 import com.rey.material.widget.FloatingActionButton;
 import com.rey.material.widget.SnackBar;
+
 import io.codetail.animation.SupportAnimator;
 import io.codetail.animation.ViewAnimationUtils;
-import io.codetail.animation.arcanimator.ArcAnimator;
-import io.codetail.animation.arcanimator.Side;
 import io.paperdb.Paper;
 import it.gmariotti.cardslib.library.recyclerview.view.CardRecyclerView;
 import self.ebolo.progressmanager.appcentral.R;
@@ -84,22 +84,8 @@ public class AppCentralActivity extends AppCompatActivity {
             public void onClick(View v) {
                 startBlueX = ViewHelper.getX(appFAB) + appFAB.getWidth() / 2;
                 startBlueY = ViewHelper.getY(appFAB) + appFAB.getHeight() / 2;
-
-                endBlueX = (int) (ScreenInfo.WidthPx / 2f);
-                endBlueY = (int) (ScreenInfo.HeightPx * 0.7f);
-
-                ArcAnimator arcAnimator = ArcAnimator.createArcAnimator(appFAB, endBlueX,
-                    endBlueY, 0, Side.LEFT)
-                    .setDuration(ANIMDUR);
-                arcAnimator.addListener(new SimpleListener() {
-                    @Override
-                    public void onAnimationEnd(Animator animation) {
-                        appFAB.setVisibility(View.INVISIBLE);
-                        appearNewSubjectScreen();
-                    }
-                });
-                arcAnimator.start();
-
+                appFAB.setVisibility(View.INVISIBLE);
+                appearNewSubjectScreen();
             }
         });
 
@@ -120,7 +106,8 @@ public class AppCentralActivity extends AppCompatActivity {
 
         float finalRadius = Math.max(ScreenInfo.WidthPx, ScreenInfo.HeightPx) * 1.5f;
 
-        SupportAnimator animator = ViewAnimationUtils.createCircularReveal(newSubjectScreen, endBlueX, endBlueY,
+        SupportAnimator animator = ViewAnimationUtils.createCircularReveal(newSubjectScreen
+            , (int) startBlueX, (int) startBlueY,
             appFAB.getWidth() / 2f,
             finalRadius);
         animator.setDuration(ANIMDUR);
@@ -147,27 +134,20 @@ public class AppCentralActivity extends AppCompatActivity {
     void disappearNewSubjectScreen() {
         float finalRadius = Math.max(ScreenInfo.WidthPx, ScreenInfo.HeightPx) * 1.5f;
         dummy.setVisibility(View.INVISIBLE);
-        SupportAnimator animator = ViewAnimationUtils.createCircularReveal(newSubjectScreen, endBlueX, endBlueY,
+        SupportAnimator animator = ViewAnimationUtils.createCircularReveal(newSubjectScreen
+            , (int) startBlueX, (int) startBlueY,
             finalRadius, appFAB.getWidth() / 2f);
         animator.setDuration(ANIMDUR);
         animator.addListener(new SimpleListener() {
             @Override
             public void onAnimationEnd() {
                 newSubjectScreen.setVisibility(View.INVISIBLE);
-                returnBlue();
+                //returnBlue();
+                appFAB.setVisibility(View.VISIBLE);
             }
         });
         animator.setInterpolator(DECELERATE);
         animator.start();
-    }
-
-    void returnBlue() {
-        appFAB.setVisibility(View.VISIBLE);
-        ArcAnimator arcAnimator = ArcAnimator.createArcAnimator(appFAB, startBlueX,
-            startBlueY, 0, Side.LEFT)
-            .setDuration(ANIMDUR);
-        arcAnimator.start();
-
     }
 
     @Override
@@ -183,11 +163,21 @@ public class AppCentralActivity extends AppCompatActivity {
                 mAdapter.notifyItemInserted(0);
                 mRecyclerView.smoothScrollToPosition(0);
             }
+        } else if (requestCode == 2) {
+            showFAB();
         }
     }
 
     public SnackBar getSnackBar() {
         return snackBar;
+    }
+
+    public void hideFAB() {
+        appFAB.animate().alpha(0);
+    }
+
+    public void showFAB() {
+        appFAB.animate().alpha(1);
     }
 
     private static class SimpleListener implements SupportAnimator.AnimatorListener, ObjectAnimator.AnimatorListener {

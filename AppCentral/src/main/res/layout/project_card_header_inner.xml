@@ -19,25 +19,24 @@
   -->
 <!-- This is the InnerContent of Header -->
 
-<LinearLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
+    android:layout_height="50dp"
+    android:orientation="vertical">
 
 
     <!-- This is the base Inner View inside a CardHeader.
          You can customize it with your layout xml file and your CardHeader.
          You can populate your elements with CardHeader#setupInnerViewElements(android.view.ViewGroup, android.view.View) method -->
     <TextView
+        android:id="@+id/card_header_inner_simple_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="30dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"
-        android:id="@+id/card_header_inner_simple_title"
-        android:textSize="22sp"
-        android:textColor="#ffffffff"/>
+        android:textColor="#ffffffff"
+        android:textSize="22sp"/>
 
-</LinearLayout>
+</RelativeLayout>

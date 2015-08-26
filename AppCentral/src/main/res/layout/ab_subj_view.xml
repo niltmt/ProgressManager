@@ -10,12 +10,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:maxLines="1"
         android:clickable="false"
         android:focusable="false"
         android:longClickable="false"
-        android:textStyle="bold"
-        android:textSize="25sp"
-        android:textColor="#FFFFFF"/>
+        android:maxLines="1"
+        android:textColor="#FFFFFF"
+        android:textSize="22sp"
+        android:transitionName="subj_title"/>
 
 </LinearLayout>

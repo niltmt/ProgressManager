@@ -5,13 +5,19 @@ import android.graphics.Color;
 import android.os.Build;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ActivityOptionsCompat;
+import android.support.v4.util.Pair;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
+
 import com.rey.material.widget.SnackBar;
+
+import java.util.ArrayList;
+import java.util.Collections;
+
 import io.paperdb.Paper;
 import it.gmariotti.cardslib.library.internal.Card;
 import it.gmariotti.cardslib.library.recyclerview.view.CardRecyclerView;
@@ -23,9 +29,6 @@ import self.ebolo.progressmanager.appcentral.cards.ProjectCard;
 import self.ebolo.progressmanager.appcentral.cards.ProjectCardExpand;
 import self.ebolo.progressmanager.appcentral.cards.ProjectCardHeader;
 import self.ebolo.progressmanager.appcentral.data.ProjectItem;
-
-import java.util.ArrayList;
-import java.util.Collections;
 
 /**
  * Created by YOLO on 8/24/2015.
@@ -56,6 +59,10 @@ public class ProjectCardRecyclerAdapter extends RecyclerView.Adapter<ProjectCard
         holder.projectCardNative.setForceReplaceInnerLayout(true);
         holder.projectCardNative.setRecycle(false);
 
+        final ProjectCardHeader cardHeader = new ProjectCardHeader(
+            usingAct, 22, mProject.getSubjectName());
+        cardHeader.setButtonExpandVisible(true);
+
         Card card = new ProjectCard(usingAct, mProject);
         card.setClickable(true);
         card.setOnClickListener(new Card.OnCardClickListener() {
@@ -66,19 +73,18 @@ public class ProjectCardRecyclerAdapter extends RecyclerView.Adapter<ProjectCard
                 projectViewIntent.putExtra("selectedSubjNum", i);
                 if (Build.VERSION.SDK_INT > 20) {
                     holder.projectCardNative.setTransitionName("info_card");
-                    ActivityOptionsCompat optionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation(
-                        usingAct, holder.projectCardNative, "info_card");
-                    ActivityCompat.startActivity(usingAct, projectViewIntent, optionsCompat.toBundle());
+                    cardHeader.getTitleView().setTransitionName("subj_title");
+                    Pair<View, String> p1 = Pair.create((View) holder.projectCardNative, "info_card");
+                    Pair<View, String> p2 = Pair.create((View) cardHeader.getTitleView(), "subj_title");
+                    ((AppCentralActivity) usingAct).hideFAB();
+                    ActivityOptionsCompat optionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation(usingAct, p1, p2);
+                    ActivityCompat.startActivityForResult(usingAct, projectViewIntent, 2, optionsCompat.toBundle());
                 } else {
                     usingAct.startActivity(projectViewIntent);
                 }
             }
         });
         //card.setBackgroundResource(new ColorDrawable(Color.parseColor(mProject.getColor())));
-
-        ProjectCardHeader cardHeader = new ProjectCardHeader(usingAct);
-        cardHeader.setTitle(mProject.getSubjectName());
-        cardHeader.setButtonExpandVisible(true);
 
         ProjectCardExpand cardExpand = new ProjectCardExpand(usingAct, mProject);
 
@@ -107,7 +113,7 @@ public class ProjectCardRecyclerAdapter extends RecyclerView.Adapter<ProjectCard
 
     @Override
     public void onItemDismiss(final int position) {
-        mSnackbar = ((AppCentralActivity)usingAct).getSnackBar();
+        mSnackbar = ((AppCentralActivity) usingAct).getSnackBar();
         backup = projectItemList.get(position);
         projectItemList.remove(position);
         Paper.put("projects", projectItemList);
@@ -161,5 +167,4 @@ public class ProjectCardRecyclerAdapter extends RecyclerView.Adapter<ProjectCard
             projectCardHeader = (RelativeLayout) view.findViewById(R.id.project_card_header);
         }
     }
-
 }

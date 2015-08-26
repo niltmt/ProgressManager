@@ -1,18 +1,13 @@
 package self.ebolo.progressmanager.appcentral.cards;
 
 import android.content.Context;
-import android.content.res.ColorStateList;
 import android.graphics.Color;
-import android.graphics.ColorFilter;
 import android.graphics.PorterDuff;
-import android.graphics.drawable.GradientDrawable;
 import android.graphics.drawable.LayerDrawable;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
-import android.widget.TextView;
-import android.widget.Toast;
-import com.rey.material.widget.RippleManager;
+
 import it.gmariotti.cardslib.library.internal.Card;
 import self.ebolo.progressmanager.appcentral.R;
 import self.ebolo.progressmanager.appcentral.data.ProjectItem;
@@ -47,16 +42,7 @@ public class ProjectCard extends Card {
      * Init
      */
     private void init(){
-
-        //No Header
-
-        //Set a OnClickListener listener
-        setOnClickListener(new OnCardClickListener() {
-            @Override
-            public void onClick(Card card, View view) {
-                Toast.makeText(getContext(), "Click Listener card=", Toast.LENGTH_LONG).show();
-            }
-        });
+        //Nothing
     }
 
     @Override
