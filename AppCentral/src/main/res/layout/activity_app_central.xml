@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <io.codetail.widget.RevealFrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     xmlns:card="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@android:color/white"
     tools:context=".MyActivity"
-    tools:ignore="MergeRootFrame"
-    android:background="@android:color/white">
+    tools:ignore="MergeRootFrame">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -18,10 +18,10 @@
 
         <android.support.v7.widget.Toolbar
             android:id="@+id/app_central_toolbar"
-            android:layout_height="wrap_content"
             android:layout_width="match_parent"
-            android:minHeight="@dimen/action_bar_height"
-            android:background="@color/primary_color"/>
+            android:layout_height="wrap_content"
+            android:background="@color/primary_color"
+            android:minHeight="@dimen/action_bar_height"/>
 
         <FrameLayout
             android:id="@+id/container"
@@ -33,9 +33,9 @@
                 android:id="@+id/app_central_recyclerview"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                card:list_card_layout_resourceID="@layout/project_card"
                 android:clipToPadding="false"
-                android:paddingTop="8dp"/>
+                android:paddingTop="8dp"
+                card:list_card_layout_resourceID="@layout/project_card"/>
 
         </FrameLayout>
 
@@ -63,26 +63,27 @@
         android:layout_height="match_parent">
 
         <com.rey.material.widget.SnackBar
+            android:id="@+id/app_central_snackbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/app_central_snackbar"
             android:layout_alignParentBottom="true"
-            android:visibility="invisible"
-            android:layout_toStartOf="@+id/app_fab"
             android:layout_marginRight="10dp"
+            android:layout_toStartOf="@+id/app_fab"
+            android:visibility="invisible"
             />
 
         <com.rey.material.widget.FloatingActionButton
             android:id="@+id/app_fab"
+            style="@style/LightFABColor"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            style="@style/LightFABColor"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
             android:layout_gravity="bottom|right"
             android:layout_marginBottom="15dp"
             android:layout_marginRight="20dp"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentRight="true"/>
+            android:transitionName="app_fabs"/>
 
     </RelativeLayout>
 

@@ -5,16 +5,29 @@
                 tools:context="self.ebolo.progressmanager.appcentral.activities.ProjectViewActivity">
 
     <it.gmariotti.cardslib.library.view.CardViewNative
-        xmlns:card="http://schemas.android.com/apk/res-auto"
         android:id="@+id/project_card"
+        style="@style/native_recyclerview_card.base"
+        xmlns:card="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="0dp"
         android:layout_marginLeft="-1dp"
         android:layout_marginRight="-1dp"
         android:layout_marginTop="0dp"
-        android:layout_marginBottom="0dp"
-        style="@style/native_recyclerview_card.base"
-        card:card_layout_resourceID="@layout/project_card_layout"
-        android:transitionName="info_card"/>
+        android:transitionName="info_card"
+        card:card_layout_resourceID="@layout/project_card_layout"/>
+
+    <com.rey.material.widget.FloatingActionButton
+        android:id="@+id/project_view_fab"
+        style="@style/LightFABColor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_gravity="bottom|right"
+        android:layout_marginBottom="15dp"
+        android:layout_marginRight="20dp"
+        android:transitionName="app_fabs"/>
 
 </RelativeLayout>

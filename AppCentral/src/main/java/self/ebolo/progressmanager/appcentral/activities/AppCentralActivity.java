@@ -36,14 +36,11 @@ import self.ebolo.progressmanager.appcentral.utils.DeviceScreenInfo;
 public class AppCentralActivity extends AppCompatActivity {
     final private static AccelerateInterpolator ACCELERATE = new AccelerateInterpolator();
     final private static DecelerateInterpolator DECELERATE = new DecelerateInterpolator();
-
+    public FloatingActionButton appFAB;
     private AppCompatActivity thisAct;
-
     private CardRecyclerView mRecyclerView;
     private ProjectCardRecyclerAdapter mAdapter;
     private DatabaseManagement databaseManagement;
-
-    private FloatingActionButton appFAB;
     private FrameLayout newSubjectScreen;
     private FrameLayout dummy;
     private float startBlueX;
@@ -177,7 +174,7 @@ public class AppCentralActivity extends AppCompatActivity {
     }
 
     public void showFAB() {
-        appFAB.animate().alpha(1);
+        appFAB.animate().setDuration(50).alpha(1);
     }
 
     private static class SimpleListener implements SupportAnimator.AnimatorListener, ObjectAnimator.AnimatorListener {

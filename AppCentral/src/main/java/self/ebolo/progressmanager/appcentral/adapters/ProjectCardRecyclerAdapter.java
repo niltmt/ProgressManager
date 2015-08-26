@@ -69,15 +69,15 @@ public class ProjectCardRecyclerAdapter extends RecyclerView.Adapter<ProjectCard
             @Override
             public void onClick(Card card, View view) {
                 final Intent projectViewIntent = new Intent(usingAct, ProjectViewActivity.class);
-                projectViewIntent.putExtra("subjList", projectItemList);
-                projectViewIntent.putExtra("selectedSubjNum", i);
+                projectViewIntent.putExtra("proj", mProject);
+                ((AppCentralActivity) usingAct).hideFAB();
                 if (Build.VERSION.SDK_INT > 20) {
                     holder.projectCardNative.setTransitionName("info_card");
                     cardHeader.getTitleView().setTransitionName("subj_title");
                     Pair<View, String> p1 = Pair.create((View) holder.projectCardNative, "info_card");
                     Pair<View, String> p2 = Pair.create((View) cardHeader.getTitleView(), "subj_title");
-                    ((AppCentralActivity) usingAct).hideFAB();
-                    ActivityOptionsCompat optionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation(usingAct, p1, p2);
+                    Pair<View, String> p3 = Pair.create((View) ((AppCentralActivity) usingAct).appFAB, "app_fabs");
+                    ActivityOptionsCompat optionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation(usingAct, p1, p2, p3);
                     ActivityCompat.startActivityForResult(usingAct, projectViewIntent, 2, optionsCompat.toBundle());
                 } else {
                     usingAct.startActivity(projectViewIntent);

@@ -16,7 +16,7 @@ import android.view.WindowManager;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import java.util.ArrayList;
+import com.rey.material.widget.FloatingActionButton;
 
 import it.gmariotti.cardslib.library.internal.Card;
 import it.gmariotti.cardslib.library.view.CardViewNative;
@@ -28,26 +28,32 @@ import self.ebolo.progressmanager.appcentral.data.ProjectItem;
 
 public class ProjectViewActivity extends AppCompatActivity {
     private int subjNum;
-    private ArrayList<ProjectItem> subjs;
+    private ProjectItem mProjectItem;
     private CardViewNative subjCardView;
     private ProjectCardHeader cardHeader;
+    private FloatingActionButton projectViewFAB;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_subject_view);
+
+
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
-            subjs = (ArrayList<ProjectItem>) extras.getSerializable("subjList");
-            subjNum = extras.getInt("selectedSubjNum");
+            mProjectItem = (ProjectItem) extras.get("proj");
         } else {
-            subjs = null;
-            subjNum = 0;
+            mProjectItem = new ProjectItem();
         }
+
+        projectViewFAB
+            = (FloatingActionButton) findViewById(R.id.project_view_fab);
+        projectViewFAB.setBackgroundColor(Color.parseColor(mProjectItem.getColor()));
+
         subjCardView = (CardViewNative) findViewById(R.id.project_card);
         RelativeLayout cardViewHeader = (RelativeLayout) findViewById(R.id.project_card_header);
-        cardViewHeader.setBackgroundColor(Color.parseColor(subjs.get(subjNum).getColor()));
-        Card subjCard = new ProjectCard(this, subjs.get(subjNum));
+        cardViewHeader.setBackgroundColor(Color.parseColor(mProjectItem.getColor()));
+        Card subjCard = new ProjectCard(this, mProjectItem);
 
         cardHeader = new ProjectCardHeader(this, 16, "General Information");
         cardHeader.setButtonExpandVisible(true);
@@ -63,7 +69,7 @@ public class ProjectViewActivity extends AppCompatActivity {
                 ActionBar.LayoutParams.MATCH_PARENT,
                 Gravity.CENTER);
         TextView textviewTitle = (TextView) viewActionBar.findViewById(R.id.view_title);
-        textviewTitle.setText(subjs.get(subjNum).getSubjectName());
+        textviewTitle.setText(mProjectItem.getSubjectName());
         textviewTitle.setTextSize(22);
         abar.setCustomView(viewActionBar, params);
         abar.setDisplayShowCustomEnabled(true);
@@ -71,10 +77,10 @@ public class ProjectViewActivity extends AppCompatActivity {
         abar.setDisplayHomeAsUpEnabled(true);
         abar.setHomeButtonEnabled(true);
         abar.setElevation(0);
-        abar.setBackgroundDrawable(new ColorDrawable(Color.parseColor(subjs.get(subjNum).getColor())));
+        abar.setBackgroundDrawable(new ColorDrawable(Color.parseColor(mProjectItem.getColor())));
         if (Build.VERSION.SDK_INT > 20) {
             float[] hsv = new float[3];
-            int color = Color.parseColor(subjs.get(subjNum).getColor());
+            int color = Color.parseColor(mProjectItem.getColor());
             Color.colorToHSV(color, hsv);
             hsv[2] = 0.2f + 0.5f * hsv[2];
             color = Color.HSVToColor(hsv);
@@ -110,6 +116,7 @@ public class ProjectViewActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
+        projectViewFAB.setVisibility(View.GONE);
         cardHeader.getTitleView().setVisibility(View.GONE);
         ActivityCompat.finishAfterTransition(this);
     }
