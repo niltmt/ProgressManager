@@ -1,24 +1,27 @@
 package self.ebolo.progressmanager.appcentral.adapters;
 
-import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
+import android.os.Build;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 import com.rey.material.widget.SnackBar;
 import io.paperdb.Paper;
-import it.gmariotti.cardslib.library.internal.CardExpand;
-import it.gmariotti.cardslib.library.internal.CardHeader;
 import it.gmariotti.cardslib.library.internal.Card;
 import it.gmariotti.cardslib.library.recyclerview.view.CardRecyclerView;
 import it.gmariotti.cardslib.library.view.CardViewNative;
 import self.ebolo.progressmanager.appcentral.R;
 import self.ebolo.progressmanager.appcentral.activities.AppCentralActivity;
+import self.ebolo.progressmanager.appcentral.activities.ProjectViewActivity;
 import self.ebolo.progressmanager.appcentral.cards.ProjectCard;
+import self.ebolo.progressmanager.appcentral.cards.ProjectCardExpand;
+import self.ebolo.progressmanager.appcentral.cards.ProjectCardHeader;
 import self.ebolo.progressmanager.appcentral.data.ProjectItem;
 
 import java.util.ArrayList;
@@ -31,14 +34,13 @@ public class ProjectCardRecyclerAdapter extends RecyclerView.Adapter<ProjectCard
     implements ProjectCardTouchHelperAdapter {
 
     private final AppCompatActivity usingAct;
-    private ArrayList<ProjectItem> projectItemList;
     protected SnackBar mSnackbar;
-    private ProjectItem backup;
-
     /**
      * {@link CardRecyclerView}
      */
     protected CardRecyclerView mCardRecyclerView;
+    private ArrayList<ProjectItem> projectItemList;
+    private ProjectItem backup;
 
     public ProjectCardRecyclerAdapter(AppCompatActivity context
         , ArrayList<ProjectItem> data) {
@@ -47,7 +49,7 @@ public class ProjectCardRecyclerAdapter extends RecyclerView.Adapter<ProjectCard
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
+    public void onBindViewHolder(final ViewHolder holder, int position) {
         final int i = position;
         final ProjectItem mProject = projectItemList.get(i);
 
@@ -59,6 +61,17 @@ public class ProjectCardRecyclerAdapter extends RecyclerView.Adapter<ProjectCard
         card.setOnClickListener(new Card.OnCardClickListener() {
             @Override
             public void onClick(Card card, View view) {
+                final Intent projectViewIntent = new Intent(usingAct, ProjectViewActivity.class);
+                projectViewIntent.putExtra("subjList", projectItemList);
+                projectViewIntent.putExtra("selectedSubjNum", i);
+                if (Build.VERSION.SDK_INT > 20) {
+                    holder.projectCardNative.setTransitionName("info_card");
+                    ActivityOptionsCompat optionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation(
+                        usingAct, holder.projectCardNative, "info_card");
+                    ActivityCompat.startActivity(usingAct, projectViewIntent, optionsCompat.toBundle());
+                } else {
+                    usingAct.startActivity(projectViewIntent);
+                }
             }
         });
         //card.setBackgroundResource(new ColorDrawable(Color.parseColor(mProject.getColor())));
@@ -125,42 +138,6 @@ public class ProjectCardRecyclerAdapter extends RecyclerView.Adapter<ProjectCard
         notifyItemMoved(fromPosition, toPosition);
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
-        public CardViewNative projectCardNative;
-        public RelativeLayout projectCardHeader;
-        public ViewHolder (View view) {
-            super(view);
-            projectCardNative = (CardViewNative)view.findViewById(R.id.list_cardId);
-            projectCardHeader = (RelativeLayout)view.findViewById(R.id.project_card_header);
-        }
-    }
-
-    private class ProjectCardExpand extends CardExpand {
-        private TextView projectCardInfo;
-        private final ProjectItem projectItem;
-
-        public ProjectCardExpand(Context context, ProjectItem data) {
-            super(context, R.layout.project_card_expand);
-            projectItem = data;
-        }
-
-        @Override
-        public void setupInnerViewElements(ViewGroup parent, View view) {
-            if (view != null) {
-                projectCardInfo = (TextView)view.findViewById(R.id.project_card_info);
-                if (projectCardInfo != null) {
-                    projectCardInfo.setText(projectItem.getSubjectName());
-                }
-            }
-        }
-    }
-
-    private class ProjectCardHeader extends CardHeader {
-        public ProjectCardHeader(Context context) {
-            super(context, R.layout.project_card_header_inner);
-        }
-    }
-
     public CardRecyclerView getCardRecyclerView() {
         return mCardRecyclerView;
     }
@@ -172,6 +149,17 @@ public class ProjectCardRecyclerAdapter extends RecyclerView.Adapter<ProjectCard
      */
     public void setCardRecyclerView(CardRecyclerView cardRecyclerView) {
         mCardRecyclerView = cardRecyclerView;
+    }
+
+    public class ViewHolder extends RecyclerView.ViewHolder {
+        public CardViewNative projectCardNative;
+        public RelativeLayout projectCardHeader;
+
+        public ViewHolder(View view) {
+            super(view);
+            projectCardNative = (CardViewNative) view.findViewById(R.id.list_cardId);
+            projectCardHeader = (RelativeLayout) view.findViewById(R.id.project_card_header);
+        }
     }
 
 }
