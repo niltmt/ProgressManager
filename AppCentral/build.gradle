@@ -7,9 +7,6 @@ buildscript {
     }
 }
 apply plugin: 'com.android.application'
-apply plugin: 'com.github.dcendents.android-maven'
-
-group = 'com.github.niltmt'
 
 repositories {
     jcenter()
@@ -53,7 +50,6 @@ dependencies {
     compile 'com.github.gabrielemariotti.cards:cardslib-core:2.1.0'
     compile 'com.github.asyl.animation:arcanimator:1.0.0'
 
-    /*compile 'com.github.ozodrukh:CircularReveal:1.1.1@aar'*/
     compile 'com.github.gabrielemariotti.cards:cardslib-cards:2.1.0'
     compile 'com.github.gabrielemariotti.cards:cardslib-recyclerview:2.1.0'
     compile 'com.github.gabrielemariotti.cards:cardslib-extra-dragdrop:2.1.0'
