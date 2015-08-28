@@ -57,4 +57,5 @@ dependencies {
     compile 'io.paperdb:paperdb:0.9'
     compile 'com.rengwuxian.materialedittext:library:2.1.4'
     compile 'konifar:fab-transformation:1.0.0'
+    compile 'com.github.ksoichiro:android-observablescrollview:1.5.2'
 }

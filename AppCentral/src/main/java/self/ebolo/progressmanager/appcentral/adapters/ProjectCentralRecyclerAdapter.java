@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 
+import com.github.ksoichiro.android.observablescrollview.ObservableRecyclerView;
 import com.rey.material.widget.SnackBar;
 
 import java.util.ArrayList;
@@ -20,7 +21,6 @@ import java.util.Collections;
 
 import io.paperdb.Paper;
 import it.gmariotti.cardslib.library.internal.Card;
-import it.gmariotti.cardslib.library.recyclerview.view.CardRecyclerView;
 import it.gmariotti.cardslib.library.view.CardViewNative;
 import self.ebolo.progressmanager.appcentral.R;
 import self.ebolo.progressmanager.appcentral.activities.MainActivity;
@@ -33,11 +33,11 @@ import self.ebolo.progressmanager.appcentral.data.ProjectItem;
 /**
  * Created by YOLO on 8/24/2015.
  */
-public class ProjectCentralRecyclerAdapter extends RecyclerView.Adapter<ProjectCentralRecyclerAdapter.ViewHolder>
+public class ProjectCentralRecyclerAdapter extends ObservableRecyclerView.Adapter<ProjectCentralRecyclerAdapter.ViewHolder>
     implements ProjectCardTouchHelperAdapter {
     private final MainActivity mActivity;
     private final SnackBar mSnackbar;
-    protected CardRecyclerView mCardRecyclerView;
+    protected ObservableRecyclerView mCardRecyclerView;
     private ArrayList<ProjectItem> mData;
     private ProjectItem backup;
 
@@ -89,12 +89,7 @@ public class ProjectCentralRecyclerAdapter extends RecyclerView.Adapter<ProjectC
         card.addCardExpand(cardExpand);
 
         holder.mCardView.setCard(card);
-        setupExpandCollapseListAnimation(holder.mCardView);
         holder.mCardHeader.setBackgroundColor(Color.parseColor(mProject.getColor()));
-    }
-
-    protected void setupExpandCollapseListAnimation(CardViewNative cardView) {
-        cardView.setOnExpandListAnimatorListener(mCardRecyclerView);
     }
 
     @Override
@@ -140,7 +135,7 @@ public class ProjectCentralRecyclerAdapter extends RecyclerView.Adapter<ProjectC
         notifyItemMoved(fromPosition, toPosition);
     }
 
-    public CardRecyclerView getCardRecyclerView() {
+    public ObservableRecyclerView getCardRecyclerView() {
         return mCardRecyclerView;
     }
 
@@ -149,7 +144,7 @@ public class ProjectCentralRecyclerAdapter extends RecyclerView.Adapter<ProjectC
      *
      * @param cardRecyclerView
      */
-    public void setCardRecyclerView(CardRecyclerView cardRecyclerView) {
+    public void setCardRecyclerView(ObservableRecyclerView cardRecyclerView) {
         mCardRecyclerView = cardRecyclerView;
     }
 
