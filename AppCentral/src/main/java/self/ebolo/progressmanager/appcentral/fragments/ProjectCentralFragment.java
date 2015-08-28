@@ -4,23 +4,17 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.Toolbar;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
 
-import com.github.ksoichiro.android.observablescrollview.ObservableRecyclerView;
-import com.github.ksoichiro.android.observablescrollview.ObservableScrollViewCallbacks;
-import com.github.ksoichiro.android.observablescrollview.ScrollState;
-import com.nineoldandroids.animation.ValueAnimator;
-import com.nineoldandroids.view.ViewHelper;
 import com.rey.material.widget.FloatingActionButton;
 
 import java.util.ArrayList;
 
 import io.paperdb.Paper;
+import it.gmariotti.cardslib.library.recyclerview.view.CardRecyclerView;
 import self.ebolo.progressmanager.appcentral.R;
 import self.ebolo.progressmanager.appcentral.activities.MainActivity;
 import self.ebolo.progressmanager.appcentral.adapters.ProjectCentralRecyclerAdapter;
@@ -31,7 +25,7 @@ import self.ebolo.progressmanager.appcentral.utils.DeviceScreenInfo;
 public class ProjectCentralFragment extends Fragment {
     private static final String ARG_PARAM1 = "subjList";
     FloatingActionButton appFAB;
-    private ObservableRecyclerView mRecyclerView;
+    private CardRecyclerView mRecyclerView;
     private ProjectCentralRecyclerAdapter mAdapter;
     private ArrayList<ProjectItem> mData;
     private DeviceScreenInfo deviceScreenInfo;
@@ -65,9 +59,10 @@ public class ProjectCentralFragment extends Fragment {
         appFAB = ((MainActivity) getActivity()).getFAB();
         appFAB.setOnClickListener(
             new MainActivity.FABListener((AppCompatActivity) getActivity(), this));
-        mRecyclerView = (ObservableRecyclerView) view.findViewById(R.id.project_card_recyclerview);
+        mRecyclerView = (CardRecyclerView) view.findViewById(R.id.project_card_recyclerview);
         mRecyclerView.setLayoutManager(
             new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
+        mRecyclerView.setHasFixedSize(true);
         mAdapter = new ProjectCentralRecyclerAdapter(getContext(), mData);
         mAdapter.setCardRecyclerView(mRecyclerView);
         mRecyclerView.setAdapter(mAdapter);
@@ -75,29 +70,6 @@ public class ProjectCentralFragment extends Fragment {
         ItemTouchHelper.Callback callback = new CardTouchHelperCallback(mAdapter);
         ItemTouchHelper touchHelper = new ItemTouchHelper(callback);
         touchHelper.attachToRecyclerView(mRecyclerView);
-        mRecyclerView.setScrollViewCallbacks(new ObservableScrollViewCallbacks() {
-            @Override
-            public void onScrollChanged(int i, boolean b, boolean b1) {
-
-            }
-
-            @Override
-            public void onDownMotionEvent() {
-            }
-
-            @Override
-            public void onUpOrCancelMotionEvent(ScrollState scrollState) {
-                if (scrollState == ScrollState.UP) {
-                    if (toolbarIsShown()) { // TODO Not implemented
-                        hideToolbar(); // TODO Not implemented
-                    }
-                } else if (scrollState == ScrollState.DOWN) {
-                    if (toolbarIsHidden()) { // TODO Not implemented
-                        showToolbar(); // TODO Not implemented
-                    }
-                }
-            }
-        });
 
         return view;
     }
@@ -136,48 +108,5 @@ public class ProjectCentralFragment extends Fragment {
         mAdapter.notifyItemInserted(0);
         Paper.put("projects", mData);
         mRecyclerView.smoothScrollToPosition(0);
-    }
-
-    private boolean toolbarIsShown() {
-        // Toolbar is 0 in Y-axis, so we can say it's shown.
-        return ViewHelper.getTranslationY(((MainActivity) getActivity()).getAB()) == 0;
-    }
-
-    private boolean toolbarIsHidden() {
-        // Toolbar is outside of the screen and absolute Y matches the height of it.
-        // So we can say it's hidden.
-        return ViewHelper.getTranslationY(((MainActivity) getActivity()).getAB())
-            == -(((MainActivity) getActivity()).getAB()).getHeight();
-    }
-
-    private void showToolbar() {
-        moveToolbar(0);
-    }
-
-    private void hideToolbar() {
-        moveToolbar(-(((MainActivity) getActivity()).getAB()).getHeight());
-    }
-
-    private void moveToolbar(float toTranslationY) {
-        final float toTransY = toTranslationY;
-        final Toolbar mToolbar = ((MainActivity) getActivity()).getAB();
-        ValueAnimator animator = ValueAnimator.ofFloat(ViewHelper.getTranslationY(mToolbar), toTranslationY).setDuration(200);
-        final ObservableRecyclerView mScrollable = mRecyclerView;
-        animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-            @Override
-            public void onAnimationUpdate(ValueAnimator animation) {
-                if (ViewHelper.getTranslationY(mToolbar) == toTransY) {
-                    return;
-                }
-                float translationY = (float) animation.getAnimatedValue();
-                ViewHelper.setTranslationY(mToolbar, translationY);
-                FrameLayout container = (FrameLayout) getActivity().findViewById(R.id.fragments_container);
-                ViewHelper.setTranslationY(container, translationY);
-                FrameLayout.LayoutParams lp = (FrameLayout.LayoutParams) container.getLayoutParams();
-                lp.height = (int) -translationY + (int) deviceScreenInfo.HeightPx - (int) (1.47f * (float) mToolbar.getHeight());
-                container.requestLayout();
-            }
-        });
-        animator.start();
     }
 }

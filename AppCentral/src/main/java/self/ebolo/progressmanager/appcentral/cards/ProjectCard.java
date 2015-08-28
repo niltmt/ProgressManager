@@ -6,6 +6,7 @@ import android.graphics.PorterDuff;
 import android.graphics.drawable.LayerDrawable;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 
 import it.gmariotti.cardslib.library.internal.Card;
@@ -18,6 +19,7 @@ import self.ebolo.progressmanager.appcentral.data.ProjectItem;
 public class ProjectCard extends Card {
     protected ProgressBar testProgressBar;
     protected ProjectItem projectItem;
+    protected LinearLayout innerContainer;
 
     /**
      * Constructor with a custom inner layout

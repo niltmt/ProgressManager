@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <it.gmariotti.cardslib.library.view.CardViewNative
+    android:id="@+id/project_card_view"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:card="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/list_cardId"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_marginBottom="8dp"
     android:layout_marginLeft="8dp"
     android:layout_marginRight="8dp"
     android:layout_marginTop="0dp"
-    android:layout_marginBottom="8dp"
-    style="@style/native_recyclerview_card.base"
-    card:card_layout_resourceID="@layout/project_card_layout"/>
+    app:card_layout_resourceID="@layout/project_card_layout"/>

@@ -1,4 +1,4 @@
-<com.github.ksoichiro.android.observablescrollview.ObservableRecyclerView
+<it.gmariotti.cardslib.library.recyclerview.view.CardRecyclerView
     android:id="@+id/project_card_recyclerview"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"

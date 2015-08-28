@@ -7,13 +7,11 @@ import android.os.Build;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.util.Pair;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 
-import com.github.ksoichiro.android.observablescrollview.ObservableRecyclerView;
 import com.rey.material.widget.SnackBar;
 
 import java.util.ArrayList;
@@ -21,6 +19,7 @@ import java.util.Collections;
 
 import io.paperdb.Paper;
 import it.gmariotti.cardslib.library.internal.Card;
+import it.gmariotti.cardslib.library.recyclerview.view.CardRecyclerView;
 import it.gmariotti.cardslib.library.view.CardViewNative;
 import self.ebolo.progressmanager.appcentral.R;
 import self.ebolo.progressmanager.appcentral.activities.MainActivity;
@@ -33,11 +32,11 @@ import self.ebolo.progressmanager.appcentral.data.ProjectItem;
 /**
  * Created by YOLO on 8/24/2015.
  */
-public class ProjectCentralRecyclerAdapter extends ObservableRecyclerView.Adapter<ProjectCentralRecyclerAdapter.ViewHolder>
+public class ProjectCentralRecyclerAdapter extends CardRecyclerView.Adapter<ProjectCentralRecyclerAdapter.ViewHolder>
     implements ProjectCardTouchHelperAdapter {
     private final MainActivity mActivity;
     private final SnackBar mSnackbar;
-    protected ObservableRecyclerView mCardRecyclerView;
+    protected CardRecyclerView mCardRecyclerView;
     private ArrayList<ProjectItem> mData;
     private ProjectItem backup;
 
@@ -60,7 +59,7 @@ public class ProjectCentralRecyclerAdapter extends ObservableRecyclerView.Adapte
             mActivity, 22, mProject.getSubjectName());
         cardHeader.setButtonExpandVisible(true);
 
-        Card card = new ProjectCard(mActivity, mProject);
+        ProjectCard card = new ProjectCard(mActivity, mProject);
         card.setClickable(true);
         card.setOnClickListener(new Card.OnCardClickListener() {
             @Override
@@ -135,7 +134,7 @@ public class ProjectCentralRecyclerAdapter extends ObservableRecyclerView.Adapte
         notifyItemMoved(fromPosition, toPosition);
     }
 
-    public ObservableRecyclerView getCardRecyclerView() {
+    public CardRecyclerView getCardRecyclerView() {
         return mCardRecyclerView;
     }
 
@@ -144,17 +143,17 @@ public class ProjectCentralRecyclerAdapter extends ObservableRecyclerView.Adapte
      *
      * @param cardRecyclerView
      */
-    public void setCardRecyclerView(ObservableRecyclerView cardRecyclerView) {
+    public void setCardRecyclerView(CardRecyclerView cardRecyclerView) {
         mCardRecyclerView = cardRecyclerView;
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends CardRecyclerView.ViewHolder {
         public CardViewNative mCardView;
         public RelativeLayout mCardHeader;
 
         public ViewHolder(View view) {
             super(view);
-            mCardView = (CardViewNative) view.findViewById(R.id.list_cardId);
+            mCardView = (CardViewNative) view.findViewById(R.id.project_card_view);
             mCardHeader = (RelativeLayout) view.findViewById(R.id.project_card_header);
         }
     }
