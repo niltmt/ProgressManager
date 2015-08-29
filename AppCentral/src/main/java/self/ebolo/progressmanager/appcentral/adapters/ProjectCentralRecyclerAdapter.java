@@ -7,8 +7,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 
-import com.rey.material.widget.SnackBar;
-
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -26,7 +24,6 @@ import self.ebolo.progressmanager.appcentral.data.ProjectItem;
 public class ProjectCentralRecyclerAdapter extends CardRecyclerView.Adapter<ProjectCentralRecyclerAdapter.ViewHolder>
     implements ProjectCardTouchHelperAdapter {
     private final MainActivity mActivity;
-    private final SnackBar mSnackbar;
     protected CardRecyclerView mCardRecyclerView;
     private ArrayList<Card> mCards;
     private ArrayList<ProjectItem> mData;
@@ -38,7 +35,6 @@ public class ProjectCentralRecyclerAdapter extends CardRecyclerView.Adapter<Proj
         mCards = cards;
         mData = data;
         mActivity = (MainActivity) context;
-        mSnackbar = ((MainActivity) context).getSnackBar();
     }
 
     @Override
@@ -71,7 +67,7 @@ public class ProjectCentralRecyclerAdapter extends CardRecyclerView.Adapter<Proj
         mData.remove(position);
         Paper.put("projects", mData);
         notifyItemRemoved(position);
-        mSnackbar.applyStyle(R.style.SnackBarUndoRemove).actionClickListener(new SnackBar.OnActionClickListener() {
+        /*mSnackbar.applyStyle(R.style.SnackBarUndoRemove).actionClickListener(new SnackBar.OnActionClickListener() {
             @Override
             public void onActionClick(SnackBar snackBar, int i) {
                 mCards.add(position, mBackupCard);
@@ -80,7 +76,7 @@ public class ProjectCentralRecyclerAdapter extends CardRecyclerView.Adapter<Proj
                 notifyItemInserted(position);
                 mCardRecyclerView.smoothScrollToPosition(position);
             }
-        }).show();
+        }).show();*/
     }
 
     @Override
@@ -119,7 +115,7 @@ public class ProjectCentralRecyclerAdapter extends CardRecyclerView.Adapter<Proj
 
         public ViewHolder(View view) {
             super(view);
-            mCardView = (CardViewNative) view.findViewById(R.id.project_card_view);
+            mCardView = (CardViewNative) view.findViewById(R.id.list_cardId);
             mCardHeader = (RelativeLayout) view.findViewById(R.id.project_card_header);
         }
     }

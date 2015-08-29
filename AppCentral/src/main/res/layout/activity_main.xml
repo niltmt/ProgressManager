@@ -32,31 +32,16 @@
 
     </FrameLayout>
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+    <com.rey.material.widget.FloatingActionButton
+        android:id="@+id/app_fab"
+        style="@style/LightFABColor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|right"
+        android:layout_marginBottom="15dp"
+        android:layout_marginEnd="20dp"/>
 
-        <com.rey.material.widget.SnackBar
-            android:id="@+id/app_snackbar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_marginEnd="10dp"
-            android:layout_toStartOf="@+id/app_fab"
-            android:visibility="invisible"
-            />
-
-        <com.rey.material.widget.FloatingActionButton
-            android:id="@+id/app_fab"
-            style="@style/LightFABColor"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentEnd="true"
-            android:layout_marginBottom="15dp"
-            android:layout_marginEnd="20dp"/>
-
-    </RelativeLayout>
+    <include layout="@layout/list_card_undo_materialmobile_message"/>
 
     <include layout="@layout/project_add_view"/>
 

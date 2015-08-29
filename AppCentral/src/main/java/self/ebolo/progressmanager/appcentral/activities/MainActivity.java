@@ -18,7 +18,6 @@ import com.konifar.fab_transformation.FabTransformation;
 import com.rengwuxian.materialedittext.MaterialEditText;
 import com.rey.material.widget.Button;
 import com.rey.material.widget.FloatingActionButton;
-import com.rey.material.widget.SnackBar;
 
 import java.util.ArrayList;
 
@@ -32,7 +31,6 @@ public class MainActivity extends AppCompatActivity {
     private static FloatingActionButton mFAB;
     private Toolbar mAB;
     private DatabaseManagement mdatabase;
-    private SnackBar mSnackBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +41,6 @@ public class MainActivity extends AppCompatActivity {
         mAB = (Toolbar) findViewById(R.id.app_ab);
         setSupportActionBar(mAB);
         mFAB = (FloatingActionButton) findViewById(R.id.app_fab);
-        mSnackBar = (SnackBar) findViewById(R.id.app_snackbar);
         mdatabase = new DatabaseManagement();
 
         if (Paper.exist("projects")) {
@@ -95,10 +92,6 @@ public class MainActivity extends AppCompatActivity {
 
     public FloatingActionButton getFAB() {
         return mFAB;
-    }
-
-    public SnackBar getSnackBar() {
-        return mSnackBar;
     }
 
     @Override
