@@ -16,8 +16,6 @@ import android.view.WindowManager;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import java.util.ArrayList;
-
 import it.gmariotti.cardslib.library.internal.Card;
 import it.gmariotti.cardslib.library.view.CardViewNative;
 import self.ebolo.progressmanager.appcentral.R;
@@ -27,9 +25,8 @@ import self.ebolo.progressmanager.appcentral.data.ProjectItem;
 
 
 public class ProjectViewActivity extends AppCompatActivity {
-    private int subjNum;
-    private ArrayList<ProjectItem> subjs;
-    private CardViewNative subjCardView;
+    private ProjectItem mProject;
+    private CardViewNative projectCardView;
     private ProjectCardHeader cardHeader;
 
     @Override
@@ -38,23 +35,21 @@ public class ProjectViewActivity extends AppCompatActivity {
         setContentView(R.layout.activity_subject_view);
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
-            subjs = (ArrayList<ProjectItem>) extras.getSerializable("subjList");
-            subjNum = extras.getInt("selectedSubjNum");
+            mProject = (ProjectItem) extras.get("project");
         } else {
-            subjs = null;
-            subjNum = 0;
+            mProject = new ProjectItem();
         }
-        subjCardView = (CardViewNative) findViewById(R.id.project_card);
+        projectCardView = (CardViewNative) findViewById(R.id.project_card);
         RelativeLayout cardViewHeader = (RelativeLayout) findViewById(R.id.project_card_header);
-        cardViewHeader.setBackgroundColor(Color.parseColor(subjs.get(subjNum).getColor()));
-        Card subjCard = new ProjectCard(this, subjs.get(subjNum));
+        cardViewHeader.setBackgroundColor(Color.parseColor(mProject.getColor()));
+        Card subjCard = new ProjectCard(this, mProject);
 
         cardHeader = new ProjectCardHeader(this, 16, "General Information");
         cardHeader.setButtonExpandVisible(true);
 
         subjCard.addCardHeader(cardHeader);
 
-        subjCardView.setCard(subjCard);
+        projectCardView.setCard(subjCard);
         //Customize the ActionBar
         final ActionBar abar = getSupportActionBar();
         View viewActionBar = getLayoutInflater().inflate(R.layout.ab_subj_view, null);
@@ -63,7 +58,7 @@ public class ProjectViewActivity extends AppCompatActivity {
                 ActionBar.LayoutParams.MATCH_PARENT,
                 Gravity.CENTER);
         TextView textviewTitle = (TextView) viewActionBar.findViewById(R.id.view_title);
-        textviewTitle.setText(subjs.get(subjNum).getSubjectName());
+        textviewTitle.setText(mProject.getSubjectName());
         textviewTitle.setTextSize(22);
         abar.setCustomView(viewActionBar, params);
         abar.setDisplayShowCustomEnabled(true);
@@ -71,10 +66,10 @@ public class ProjectViewActivity extends AppCompatActivity {
         abar.setDisplayHomeAsUpEnabled(true);
         abar.setHomeButtonEnabled(true);
         abar.setElevation(0);
-        abar.setBackgroundDrawable(new ColorDrawable(Color.parseColor(subjs.get(subjNum).getColor())));
+        abar.setBackgroundDrawable(new ColorDrawable(Color.parseColor(mProject.getColor())));
         if (Build.VERSION.SDK_INT > 20) {
             float[] hsv = new float[3];
-            int color = Color.parseColor(subjs.get(subjNum).getColor());
+            int color = Color.parseColor(mProject.getColor());
             Color.colorToHSV(color, hsv);
             hsv[2] = 0.2f + 0.5f * hsv[2];
             color = Color.HSVToColor(hsv);
